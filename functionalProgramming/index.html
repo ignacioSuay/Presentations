@@ -1,0 +1,68 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/white.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p>Functional Programming</p>
+            <p>Introduction</p>
+            <p>
+                Functional programming characteristics
+            <ul>
+                <li>There are not assignment statements:</li>
+                <li>
+                    Variables once given a value, never change
+                </li>
+                <li>
+                    No side effects because a function can just compute the result
+                </li>
+                <li> Referentially transparent: One can freely replace values by their values</li>
+            </ul>
+
+            </p>
+        </section>
+        <section>
+            <p>Functional programming is sometimes considered a set of techniques:</p>
+            <ul>
+                <li>First-class functions</li>
+                <li>Anonymous functions</li>
+                <li>Closures</li>
+                <li>Currying</li>
+                <li>Lazy evaluation</li>
+                <li>Parametric polymorphism</li>
+                <li>Algebraic data types</li>
+            </ul>
+        </section>
+        <section>
+            <p>What does it mean that in FP there are no side effects?</p>
+            <ul>
+                <li>
+                    No mutation of variables
+                </li>
+                <li>No printing to the console or to any device</li>
+                <li>No writing to files, databases, networks and so on</li>
+                <li>No excetion throwing</li>
+            </ul>
+            <p>This is the theory, but if a program doesn't have an observable result won't be very useful.
+                The idea is that the interactio with the outside world won't occur in the middle of a computation,
+                but only when you finish the computation.
+            </p>
+        </section>
+        <section>
+            <p>Is this code functional?</p>
+            public static int div(int a, int b) {
+                log.info("divide {}  / {} ", a, b)
+                return a / b;
+            }
+        </section>
+    </div>
+</div>
+<script src="../reveal.js/js/reveal.js"></script>
+<script>
+    Reveal.initialize();
+</script>
+</body>
+</html>
