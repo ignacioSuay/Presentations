@@ -19,7 +19,9 @@
                 <li>
                     No side effects because a function can just compute the result
                 </li>
-                <li> Referentially transparent: One can freely replace values by their values</li>
+                <li> Referentially transparent: The output will depend only in its input. One can freely replace values
+                    by their values
+                </li>
             </ul>
 
             </p>
@@ -53,16 +55,108 @@
         </section>
         <section>
             <p>Is this code functional?</p>
+            <pre><code data-trim data-noescape>
             public static int div(int a, int b) {
-                log.info("divide {}  / {} ", a, b)
+                log.info("divide {} / {} ", a, b)
                 return a / b;
             }
+            </code></pre>
+        </section>
+        <section>
+            <p>Benefits</p>
+            <ul>
+                <li>FP are deterministic, because the result will depend just from the input are easier to understand
+                </li>
+                <li>Fuc programs are easier to test because there are no side effects (no interaction with the outside
+                    world)
+                </li>
+                <li>FP are more modular, because they are built from functions with just input and output</li>
+                <li>FP makes compositions and recombination much easier.</li>
+                <li>Functional programs are inherently thread-safe because they avoid mutation of shared state</li>
+
+            </ul>
+        </section>
+        <section>
+            <p>Functions in Java</p>
+            <p>A method can be functional if it respects the requirements of a pure function:</p>
+            <ul>
+                <li>It must not mutate anything outside the function. No internal mutation may be visible from the
+                    outside.
+                </li>
+                <li>It must not mutate its argument.</li>
+                <li>It must not throw errors or exceptions.</li>
+                <li>It must always return a value.</li>
+                <li>When called with the same argument, it must always return the same result.</li>
+            </ul>
+            Methods could be functional but you cannot pass a method as an argument, and you cannot compose methods
+            without applying them
+        </section>
+
+        <section>
+            <p>Java functional interface</p>
+            <p>Java provides an interface called Function&lt;T,R&gt;  </p>
+            <p>T - the type of the input to the function</p>
+            <p>R - the type of the result of the function</p>
+
+            And this interface declare 4 methods: R apply(T t), Function andThen(Function after), Function
+            compose(Function before), Function identity()
+
+            <pre><code class="java">
+            Function&lt;Integer,Integer&gt; duplicate = x -> x * 2
+
+            duplicate.apply(3) // 6
+            </code></pre>
+        </section>
+        <section>
+            How would you create a function that first duplicates an integer and after adds it 2?
+
+            <p>Solution</p>
+            <pre><code data-trim data-noescape>
+Function&lt;Integer, Integer&gt; duplicate = x -> x * 2;
+Function&lt;Integer, Integer&gt; add2 = x -> x + 2;
+
+Function&lt;Integer, Integer&gt; duplicateAndSum = duplicate.andThen(add2);
+Function&lt;Integer, Integer&gt; duplicateAndSum = add2.compose(duplicate);
+Function&lt;Integer, Integer&gt; duplicateAndSum = duplicate.andThen(x -> x + 2);
+
+duplicateAndSum.apply(4) // 10
+            </code></pre>
+        </section>
+        <section>
+            <p>What about functions of several arguments?</p>
+            <p>A function can contain only a tuple of arguments</p>
+            <p>There are 2 options to handle more than one argument:</p>
+            <ul>
+                <li>Curried functions</li>
+                <li>Use tuples of n cardinality: pair, triplet, quartet...</li>
+            </ul>
+        </section>
+        <section>
+            <p>Tuples</p>
+            <pre><code data-trim data-noescape>
+Function&lt;Tuple&lt;Double, Double&gt;, Double&lt; addTax= tuple -> tuple._2 + tuple._2 * tuple._1;
+
+BiFunction&lt;Double, Double, Double&gt; addTax = (price, tax) -> price + (price * tax);
+BinaryOperator&lt;Double&gt; addTaxBi = (price, tax) -> price + (price * tax);
+
+//For more than 2 element you will need to create your own function
+@FunctionalInterface
+interface Function3 &lt;A, B, C, R&gt; {
+    public R apply (A a, B b, C c);
+}
+
+Function3 &lt;String, Integer, Double, Double&gt; multiAdder = (a, b, c) -> {
+    return Double.parseDouble (a) + b + c;
+};
+
+            </code></pre>
         </section>
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
 <script>
     Reveal.initialize();
+    Reveal.configure({slideNumber: 'c/t'});
 </script>
 </body>
 </html>
