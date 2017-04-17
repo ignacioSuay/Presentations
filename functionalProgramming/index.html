@@ -148,9 +148,44 @@ interface Function3 &lt;A, B, C, R&gt; {
 Function3 &lt;String, Integer, Double, Double&gt; multiAdder = (a, b, c) -> {
     return Double.parseDouble (a) + b + c;
 };
+            </code></pre>
+        </section>
+        <section>
+            <p>Curried functions (1/2)</p>
+            <p>Currying is the fact of evaluating function arguments one by one, producing a new function with one
+                argument less on each step.</p>
+            <p>Arguments can be applied one by one, each application of one argument returning a new function, except
+                for the last one.</p>
+
+            <p>Let’s try to define a function for adding two integers.</p>
+            <pre><code data-trim data-noescape>
+Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
+
+                add.apply(2).apply(3) //5
+            </code></pre>
+
+        </section>
+        <section>
+            WHATTTT?????
+        </section>
+        <section>
+            <p>Partial application</p>
+            <p>Currying is related to, but not the same as, partial application.</p>
+            <p>Currying is very useful when arguments of a function must be evaluated in different places. Using
+                currying, one may evaluate one argument in some component, then pass the result to another component to
+                evaluate another argument, and so on until all arguments are evaluated.</p>
+
+            <pre><code data-trim data-noescape>
+        Function&lt;Double, Function&lt;Double, Double&gt;&gt; addTax
+            = tax -> price -> price + (price * tax);
+
+                Function addTax9 = addTax.apply(9)
+
+                addtax9.apply(100)
 
             </code></pre>
         </section>
+
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
