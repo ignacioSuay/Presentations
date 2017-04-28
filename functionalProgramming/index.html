@@ -94,7 +94,7 @@
 
         <section>
             <p>Java functional interface</p>
-            <p>Java provides an interface called Function&lt;T,R&gt;  </p>
+            <p>Java provides an interface called Function&lt;T,R&gt; </p>
             <p>T - the type of the input to the function</p>
             <p>R - the type of the result of the function</p>
 
@@ -185,13 +185,41 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
 
             </code></pre>
         </section>
+        <section>
+            <p>Being Lazy</p>
+            <p>Lazy Initialization</p>
+            <p>In object-oriented programming we ensure that objects are well constructed before any method calls</p>
+            <p>This works well most of the time, but when parts of an object’s internals are heavyweight resources,
+                we’ll benefit if we postpone creating them</p>
+        </section>
+        <section>
+            Usual approach
+            <pre><code data-trim data-noescape>
+                public class Heavy {
+                    public Heavy(){
+                        System.out.println("Heavy created");
+                    }
+                }
 
+                public class LoadHeavy {
+                    private Heavy heavy;
+
+                    public Heavy getHeavy(){
+                        if(
+                    }
+
+                }
+
+            </code></pre>
+        </section>
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
 <script>
     Reveal.initialize();
-    Reveal.configure({slideNumber: 'c/t'});
+    Reveal.configure({slideNumber: 'c/t', history:true});
+
+
 </script>
 </body>
 </html>
