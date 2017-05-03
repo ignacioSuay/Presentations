@@ -214,12 +214,37 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
             </code></pre>
         </section>
 
+        <section>
+            <p>Handling Exceptions</p>
+            <p>When we have to handle exceptions in FP we have different options:</p>
+            <p>One option is to wrap the code in a try and catch and handle the exception</p>
+
+            <pre><code data-trim data-noescape>
+    Stream.of("/usr", "/tmp")
+        .map(path -> {
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)));
+                return bufferedReader.readLine();
+            } catch (Exception e) {
+                return e.getMessage();
+            }
+        })
+        .forEach(System.out::println);
+                </code></pre>
+        </section>
+        <section>
+
+
+
+        </section>
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
 <script>
     Reveal.initialize();
     Reveal.configure({slideNumber: 'c/t', history:true});
+
+
 
 
 </script>
