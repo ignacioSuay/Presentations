@@ -233,9 +233,52 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
                 </code></pre>
         </section>
         <section>
+            <p>Another possible solution is to wrap the checked exception and throw a Runtime Exception</p>
+            <pre><code data-trim data-noescape>
+Stream.of("log.txt", "NoExist.txt")
+    .map(path -> {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))){
+            return bufferedReader.readLine();
+        } catch (Exception e) {
+            throw new RuntimeException("File doesn't exist");
+        }
+    })
+    .forEach(System.out::println);
+            </code></pre>
 
+        </section>
 
+        <section>
+            "Try": The vavr solution to wrap the exception similar to @SneakyThrows from lombok. Will wrap the exception in a NonFatalException
 
+            <pre><code data-trim data-noescape>
+            Stream.of("log.txt", "NoExist.txt")
+                .map(path -> Try.of(() -> new BufferedReader(new FileReader(path))))
+                .peek(f -> f.onFailure(f2 -> System.out.println("File does not exist")))
+                .filter(Try::isSuccess)
+                .forEach(line-> System.out.println(line.get()));
+            </code></pre>
+        </section>
+        <section>
+            <p>Either: Represents a value of two possible types. By convention the right is the right value</p>
+    Stream.of("log.txt", "NoExist.txt")
+        .map(this::eitherLineOrException)
+        .map(e->e.getOrElseGet(Throwable::getMessage))
+        .forEach(System.out::println);
+
+    private Either<IOException, String> eitherLineOrException(String path) {
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
+            return Either.right(bufferedReader.readLine());
+        } catch (IOException exception) {
+            return Either.left(exception);
+        }
+    }
+        </section>
+
+        <section>
+            <p>Either or Try?</p>
+            <p> Only if you are interested in processing the exception you should use Either</p>
+            <p> In most of the cases, specially if you are just interested in propagating the exception you should use Try</p>
         </section>
     </div>
 </div>
