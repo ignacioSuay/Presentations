@@ -17,8 +17,9 @@ public class ReduceTest {
     }
 
     @Test
+    // start with x = 0, and y = 5
     public void foldLeftTest() {
-        Integer result = Stream.of(5, 2, 3)
+        Integer result = Stream.of(5, 2)
                 .fold(0, (x, y) -> (x + y) * x);
         assert result == 0;
         System.out.println(result);
@@ -26,11 +27,12 @@ public class ReduceTest {
     }
 
     @Test
+//    Start with the x = 2, and y = 0
     public void foldRightTest() {
-        Integer result = Stream.of(5, 2, 3)
+        Integer result = Stream.of(5, 2)
                 .foldRight(0, (x, y) -> (x + y) * x);
         System.out.println(result);
-        assert result == 135;
+        assert result == 45;
     }
 
 
