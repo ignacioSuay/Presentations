@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 
@@ -27,7 +26,6 @@ public class ExceptionTest {
 
     @Test
     public void testFileException() {
-        ClassLoader classLoader = getClass().getClassLoader();
         Stream.of("log.txt", "NoExist.txt")
                 .map(path -> {
                     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))){
@@ -39,7 +37,7 @@ public class ExceptionTest {
                 .forEach(System.out::println);
     }
 
-    @Test(expected = IOException.class)
+    @Test(expected = RuntimeException.class)
     public void testWrapFileException() {
         Stream.of("log.txt", "NoExist.txt")
                 .map(path -> {
@@ -58,11 +56,7 @@ public class ExceptionTest {
                 .map(path -> Try.of(() -> new BufferedReader(new FileReader(path))))
                 .peek(f -> f.onFailure(f2 -> System.out.println("File does not exist")))
                 .filter(Try::isSuccess)
-                .forEach(System.out::println);
-    }
-
-    private Try<BufferedReader> newFile(String path) {
-        return Try.of(() -> new BufferedReader(new FileReader(path)));
+                .forEach(line-> System.out.println(line.get()));
     }
 
     @Test(expected = Try.NonFatalException.class)
@@ -79,15 +73,13 @@ public class ExceptionTest {
     @Test
     public void usingEither() {
         Stream.of("log.txt", "NoExist.txt")
-                .map(this::readLine)
+                .map(this::eitherLineOrException)
                 .map(e->e.getOrElseGet(Throwable::getMessage))
                 .forEach(System.out::println);
-
     }
 
-    private Either<IOException, String> readLine(String path) {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+    private Either<IOException, String> eitherLineOrException(String path) {
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             return Either.right(bufferedReader.readLine());
         } catch (IOException exception) {
             return Either.left(exception);
