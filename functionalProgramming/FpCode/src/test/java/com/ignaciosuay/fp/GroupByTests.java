@@ -38,7 +38,6 @@ public class GroupByTests {
         Map<Integer, List<Person>> personOlderThan30 = persons().stream()
                 .filter(p -> p.getAge() > 30)
                 .collect(Collectors.groupingBy(Person::getAge));
-
         // {50=[Person(age=50, name=Mary)],
         // 31=[Person(age=31, name=Simon), Person(age=31, name=Matt)]}
         System.out.println(personOlderThan30);
@@ -49,7 +48,6 @@ public class GroupByTests {
         Map<Integer, List<String>> personOlderThan30 = persons().stream()
                 .filter(p -> p.getAge() > 30)
                 .collect(Collectors.groupingBy(Person::getAge, mapping(Person::getName, toList())));
-
         // {50=[Mary], 31=[Simon, Matt]}
         System.out.println(personOlderThan30);
     }
