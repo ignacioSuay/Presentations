@@ -3,7 +3,13 @@
     <link rel="stylesheet" href="../reveal.js/css/reveal.css">
     <link rel="stylesheet" href="../reveal.js/css/theme/league.css">
     <link rel="stylesheet" href="../highlight/styles/default.css">
-    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css"></head>-->
+    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">-->
+    <style type="text/css">
+        p,ul,ol{font-size:30px !important}
+
+
+    </style>
+</head>
 <body>
 <div class="reveal">
     <div class="slides">
@@ -250,7 +256,8 @@ Stream.of("log.txt", "NoExist.txt")
         </section>
 
         <section>
-            "Try": The vavr solution to wrap the exception similar to @SneakyThrows from lombok. Will wrap the exception in a NonFatalException
+            "Try": The vavr solution to wrap the exception similar to @SneakyThrows from lombok. Will wrap the exception
+            in a NonFatalException
 
             <pre><code data-trim data-noescape>
             Stream.of("log.txt", "NoExist.txt")
@@ -262,26 +269,32 @@ Stream.of("log.txt", "NoExist.txt")
         </section>
         <section>
             <p>Either: Represents a value of two possible types. By convention the right is the right value</p>
-    Stream.of("log.txt", "NoExist.txt")
-        .map(this::eitherLineOrException)
-        .map(e->e.getOrElseGet(Throwable::getMessage))
-        .forEach(System.out::println);
+            Stream.of("log.txt", "NoExist.txt")
+            .map(this::eitherLineOrException)
+            .map(e->e.getOrElseGet(Throwable::getMessage))
+            .forEach(System.out::println);
 
-    private Either<IOException, String> eitherLineOrException(String path) {
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
-            return Either.right(bufferedReader.readLine());
-        } catch (IOException exception) {
-            return Either.left(exception);
-        }
-    }
+            private Either
+            <IOException
+                    , String> eitherLineOrException(String path) {
+                try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
+                return Either.right(bufferedReader.readLine());
+                } catch (IOException exception) {
+                return Either.left(exception);
+                }
+                }
         </section>
 
         <section>
             <p>Either or Try?</p>
             <p> Only if you are interested in processing the exception you should use Either</p>
-            <p> In most of the cases, specially if you are just interested in propagating the exception you should use Try</p>
+            <p> In most of the cases, specially if you are just interested in propagating the exception you should use
+                Try</p>
         </section>
 
+        <section>
+            <h1>Functional Programming in Java</h1>
+        </section>
         <section>
             <p>Sort list in Java 7</p>
             <p> Before Java 8 we could sort a collection implementing a new Collector </p>
@@ -297,9 +310,10 @@ Stream.of("log.txt", "NoExist.txt")
             <p>But how do we do multiple sortings? for instance how do we sort persons by age and then by name?</p>
         </section>
         <section>
-            <p>Sort a list in Java 8</p>
-            <p>In Java 8 we could lambda expressions instead of the new collector and also we can reverse and/or concatenate the sorting</p>
-        <pre><code data-trim data-noescape>
+            <h3>Sort a list in Java 8</h3>
+            <p>In Java 8 we could lambda expressions instead of the new collector and also we can reverse and/or
+                concatenate the sorting</p>
+            <pre><code data-trim data-noescape>
     persons.stream()
         .sorted(comparing(Person::getAge))
         .forEach(System.out::println);
@@ -310,10 +324,93 @@ Stream.of("log.txt", "NoExist.txt")
 
     persons.stream()
         .sorted(comparing(Person::getAge).thenComparing(Person::getName))
-        .forEach(System.git guiout::println);
+        .forEach(System.out::println);
         </code></pre>
         </section>
 
+        <section>
+            <h3>Using Collector</h3>
+            <p>We could add elements to a list using the following code:</p>
+            <pre><code data-trim data-noescape>
+    List personOlderThan30 = new ArrayList<>();
+    persons().stream()
+            .filter(p -> p.getAge() > 30)
+            .forEach(personOlderThan30::add);
+
+    List personOlderThan30 = persons().stream()
+        .filter(p -> p.getAge() > 30)
+        .collect(Collectors.toList());
+            </code></pre>
+            Both snippets will produce the same result, but we could run the second version in parallel!
+        </section>
+        <section>
+            <h3>Creating a custom collector</h3>
+            <p>You can create a new collector by passing to the collect function 3 parameters:</p>
+            <ul>
+                <li>The new collection</li>
+                <li>The function to add one element</li>
+                <li>The function to join 2 collections</li>
+            </ul>
+            <pre><code data-trim data-noescape>
+    List personOlderThan30 = persons().stream()
+        .filter(p -> p.getAge() > 30)
+        .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
+    JSONArray personOlderThan30 = persons().stream()
+        .filter(p -> p.getAge() > 30)
+        .map(JSONObject::new)
+        .collect(JSONArray::new, JSONArray::put, JSONArray::put);
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Using GroupingBy - Before Java 8</h3>
+            <p>Before Java 8 in order to group a list of objects by one attribute you had to something similar to the
+                following code:</p>
+            <pre><code data-trim data-noescape>
+        Map&lt;Integer, List&lt;Person&gt;&gt; hashMap = new HashMap<>();
+        List&lt;Person&gt; persons = persons();
+
+        for(Person person : persons) {
+            if (!hashMap.containsKey(person.getAge())) {
+                List&lt;Person&gt; list = new ArrayList<>();
+                list.add(person);
+                hashMap.put(person.getAge(), list);
+            } else {
+                hashMap.get(person.getAge()).add(person);
+            }
+        }
+            </code></pre>
+        </section>
+        <section>
+            <h3>Using GroupingBy in Java 8</h3>
+            <p>Java 8 introduced a new collectio for grouping by an attribute</p>
+            <p>Also you can use mapping to just return a map of your object</p>
+            <pre><code data-trim data-noescape>
+    Map personOlderThan30 = persons().stream()
+        .filter(p -> p.getAge() > 30)
+        .collect(Collectors.groupingBy(Person::getAge));
+    // {50=[Person(age=50, name=Mary)],
+    // 31=[Person(age=31, name=Simon), Person(age=31, name=Matt)]}
+
+    Map personOlderThan30 = persons().stream()
+        .filter(p -> p.getAge() > 30)
+        .collect(Collectors.groupingBy(Person::getAge, mapping(Person::getName, toList())));
+    // {50=[Mary], 31=[Simon, Matt]}
+            </code></pre>
+        </section>
+        <section>
+            <h3>Using GroupingBy in Java 8</h3>
+
+            <p>Or "reducing" to perform a reduction of the grouping elements</p>
+            <pre><code data-trim data-noescape>
+     Map personOlderThan30 = persons().stream()
+        .filter(p -> p.getAge() > 30)
+        .collect(Collectors.groupingBy(Person::getAge,
+                reducing(BinaryOperator.maxBy(comparing(Person::getName)))));
+// {50=Optional[Person(age=50, name=Mary)], 31=Optional[Person(age=31, name=Simon)]}
+            </code></pre>
+        </section>
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
@@ -323,7 +420,6 @@ Stream.of("log.txt", "NoExist.txt")
     Reveal.initialize();
     Reveal.configure({slideNumber: 'c/t', history:true});
     hljs.initHighlightingOnLoad();
-
 
 
 </script>
