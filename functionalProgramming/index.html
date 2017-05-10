@@ -8,57 +8,74 @@
         p,ul,ol{font-size:30px !important}
 
 
+
+
     </style>
 </head>
 <body>
 <div class="reveal">
     <div class="slides">
         <section>
-            <p>Functional Programming</p>
-            <p>Introduction</p>
-            <p>
-                Functional programming characteristics
+            <h2>Functional Programming with Java and Vavr (Javaslang)</h2>
+            <p style="float:right">by: Ignacio Suay Mas</p>
+        </section>
+        <section>
+            <h2>Introduction to Functional Programming</h2>
+        </section>
+        <section>
+            <h3>Introduction</h3>
+            <p> In general terms, functional programming is a programming paradigm, and it's about programming with functions</p>
+            <p> ...so how FP is different from other paradigms?</p>
+        </section>
+        <section>
+        <p>Functional programs contain <span style="color:red">no assignment statements</span> , so variables, once given a value, never change.
+            More generally, functional programs contain <span style="color:red">no side effects</span> at all. A function call can have no effect other
+            than to compute its result. This eliminates a major source of bugs, and also makes the order of execution
+            irrelevant since no side effect can change an expression's value, it can be evaluated at any time.</p>
+            <p>This relieves the programmer of the burden of prescribing the flow of control. Since expressions can be
+            evaluated at any time, one can freely replace variables by their values and viceversa - that is, programs are
+                <span style="color:red">"referentially transparent"</span>. This freedom helps make functional programs more tractable mathematically than
+            their conventional counterparts</p>
+            <p style="float:right;font-size:20px !important">John Hughes, "Why Functional Programming Matters"</p>
+        </section>
+        <section>
+            <h3>Characteristics</h3>
+            <p>What does that mean that there are no assigments?</p>
             <ul>
-                <li>There are not assignment statements:</li>
-                <li>
-                    Variables once given a value, never change
-                </li>
-                <li>
-                    No side effects because a function can just compute the result
-                </li>
-                <li> Referentially transparent: The output will depend only in its input. One can freely replace values
-                    by their values
-                </li>
+                <li>Variables once given a value, never change</li>
+                <li>No side effects because a function can just compute the result</li>
+                <li>Referentially transparent: The output will depend only in its input. One can freely replace the function
+                    by their output values</li>
             </ul>
-
-            </p>
+        </section>
+        <section>
+            <h3>Characteristics</h3>
+            <p>What does it mean that in FP there are no side effects?</p>
+            <ul>
+                <li>No mutation of variables</li>
+                <li>No printing to the console or to any device</li>
+                <li>No writing to files, databases, networks and so on</li>
+                <li>No exception throwing</li>
+            </ul>
+            <p>This is the theory, but if a program doesn't have an observable result won't be very useful.
+                The idea is that the interaction with the outside world won't occur in the middle of a computation,
+                but only when you finish the computation.</p>
         </section>
         <section>
             <p>Functional programming is sometimes considered a set of techniques:</p>
             <ul>
-                <li>First-class functions</li>
+                <li>High-order functions</li>
                 <li>Anonymous functions</li>
                 <li>Closures</li>
                 <li>Currying</li>
-                <li>Lazy evaluation</li>
-                <li>Parametric polymorphism</li>
-                <li>Algebraic data types</li>
+                <li>Lazy evaluation (streams and supplier)</li>
+                <li>Parametric polymorphism (generics)</li>
+                <li>Algebraic data types(composite types)</li>
             </ul>
         </section>
         <section>
-            <p>What does it mean that in FP there are no side effects?</p>
-            <ul>
-                <li>
-                    No mutation of variables
-                </li>
-                <li>No printing to the console or to any device</li>
-                <li>No writing to files, databases, networks and so on</li>
-                <li>No excetion throwing</li>
-            </ul>
-            <p>This is the theory, but if a program doesn't have an observable result won't be very useful.
-                The idea is that the interactio with the outside world won't occur in the middle of a computation,
-                but only when you finish the computation.
-            </p>
+            <h3>Higher-Order Functions (HOF)</h3>
+            <p>A function which takes a function as an argument and/or returns a function.</p>
         </section>
         <section>
             <p>Is this code functional?</p>
@@ -74,7 +91,7 @@
             <ul>
                 <li>FP are deterministic, because the result will depend just from the input are easier to understand
                 </li>
-                <li>Fuc programs are easier to test because there are no side effects (no interaction with the outside
+                <li>Functional programs are easier to test because there are no side effects (no interaction with the outside
                     world)
                 </li>
                 <li>FP are more modular, because they are built from functions with just input and output</li>
@@ -420,6 +437,8 @@ Stream.of("log.txt", "NoExist.txt")
     Reveal.initialize();
     Reveal.configure({slideNumber: 'c/t', history:true});
     hljs.initHighlightingOnLoad();
+
+
 
 
 </script>
