@@ -21,7 +21,10 @@
             <p style="float:right">by: Ignacio Suay Mas</p>
         </section>
         <section>
-            <h2>Introduction to Functional Programming</h2>
+            <h2>1. Introduction to Functional Programming</h2>
+        </section>
+        <section>
+            <h3>Functional Programming is not about lambdas</h3>
         </section>
         <section>
             <h3>Introduction</h3>
@@ -215,33 +218,55 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
 
             </code></pre>
         </section>
+        <!--<section>-->
+            <!--&lt;!&ndash;I think I will skip the lazy section for the moment&ndash;&gt;-->
+            <!--<p>Being Lazy</p>-->
+            <!--<p>Lazy Initialization</p>-->
+            <!--<p>In object-oriented programming we ensure that objects are well constructed before any method calls</p>-->
+            <!--<p>This works well most of the time, but when parts of an object’s internals are heavyweight resources,-->
+                <!--we’ll benefit if we postpone creating them</p>-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--Usual approach-->
+            <!--<pre><code data-trim data-noescape>-->
+                <!--public class Heavy {-->
+                    <!--public Heavy(){-->
+                        <!--System.out.println("Heavy created");-->
+                    <!--}-->
+                <!--}-->
+
+                <!--public class LoadHeavy {-->
+                    <!--private Heavy heavy;-->
+
+                    <!--public Heavy getHeavy(){-->
+                        <!--if(-->
+                    <!--}-->
+
+                <!--}-->
+
+            <!--</code></pre>-->
+        <!--</section>-->
         <section>
-            <!--I think I will skip the lazy section for the moment-->
-            <p>Being Lazy</p>
-            <p>Lazy Initialization</p>
-            <p>In object-oriented programming we ensure that objects are well constructed before any method calls</p>
-            <p>This works well most of the time, but when parts of an object’s internals are heavyweight resources,
-                we’ll benefit if we postpone creating them</p>
-        </section>
-        <section>
-            Usual approach
+            <h3>Puzzle</h3>
             <pre><code data-trim data-noescape>
-                public class Heavy {
-                    public Heavy(){
-                        System.out.println("Heavy created");
-                    }
-                }
+    public class Test{
+        public void main (String[] args) throws IOException {
+            Function&lt;String, String&gt; readLine = path ->
+                new BufferedReader(new FileReader(path)).readLine();
 
-                public class LoadHeavy {
-                    private Heavy heavy;
-
-                    public Heavy getHeavy(){
-                        if(
-                    }
-
-                }
-
+            System.out.println(readLine.apply("log.txt"));
+        }
+    }
             </code></pre>
+<p>If the file log.txt exists, what is the result when you execute this program?</p>
+            <ol>
+                <li>The first line of the file is printed</li>
+                <li>All the lines of the file are printed</li>
+                <li>An IOException is thrown at runtime</li>
+                <li>Compilation fails</li>
+            </ol>
+
+
         </section>
 
         <section>
@@ -291,21 +316,23 @@ Stream.of("log.txt", "NoExist.txt")
             </code></pre>
         </section>
         <section>
-            <p>Either: Represents a value of two possible types. By convention the right is the right value</p>
+            <h3>Either</h3>
+            <p>Either: Represents a value of two possible types.</p>
+                <p>By convention the right is the right value</p>
+            <pre><code data-trim data-noescape>
             Stream.of("log.txt", "NoExist.txt")
             .map(this::eitherLineOrException)
             .map(e->e.getOrElseGet(Throwable::getMessage))
             .forEach(System.out::println);
 
-            private Either
-            <IOException
-                    , String> eitherLineOrException(String path) {
+            private Either &lt;IOException, String&gt; eitherLineOrException(String path) {
                 try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
-                return Either.right(bufferedReader.readLine());
+                    return Either.right(bufferedReader.readLine());
                 } catch (IOException exception) {
-                return Either.left(exception);
+                    return Either.left(exception);
                 }
-                }
+            }
+                </code></pre>
         </section>
 
         <section>
@@ -430,8 +457,10 @@ Stream.of("log.txt", "NoExist.txt")
      Map personOlderThan30 = persons().stream()
         .filter(p -> p.getAge() > 30)
         .collect(Collectors.groupingBy(Person::getAge,
-                reducing(BinaryOperator.maxBy(comparing(Person::getName)))));
+            reducing(BinaryOperator.maxBy(comparing(Person::getName)))));
+
 // {50=Optional[Person(age=50, name=Mary)], 31=Optional[Person(age=31, name=Simon)]}
+
             </code></pre>
         </section>
     </div>
@@ -442,7 +471,8 @@ Stream.of("log.txt", "NoExist.txt")
 <script>
     Reveal.initialize();
     Reveal.configure({slideNumber: 'c/t',
-     history:true
+     history:true,
+     width: "90%"
      });
 
     hljs.initHighlightingOnLoad();
