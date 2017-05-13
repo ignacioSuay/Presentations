@@ -2,7 +2,8 @@
 <head>
     <link rel="stylesheet" href="../reveal.js/css/reveal.css">
     <link rel="stylesheet" href="../reveal.js/css/theme/league.css">
-    <link rel="stylesheet" href="../highlight/styles/default.css">
+    <!--<link rel="stylesheet" href="../highlight/styles/default.css">-->
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
     <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">-->
     <style type="text/css">
         p,ul,ol{font-size:30px !important}
@@ -436,16 +437,15 @@ Stream.of("log.txt", "NoExist.txt")
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
-<!--<script src="../highlight/highlight.min.js"></script>-->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+<script src="../highlight/highlight.js"></script>
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>-->
 <script>
     Reveal.initialize();
-    Reveal.configure({slideNumber: 'c/t', history:true});
+    Reveal.configure({slideNumber: 'c/t',
+     history:true
+     });
+
     hljs.initHighlightingOnLoad();
-
-
-
-
 </script>
 </body>
 </html>
