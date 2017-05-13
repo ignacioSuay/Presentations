@@ -11,6 +11,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -28,18 +29,24 @@
         </section>
         <section>
             <h3>Introduction</h3>
-            <p> In general terms, functional programming is a programming paradigm, and it's about programming with functions</p>
+            <p> In general terms, functional programming is a programming paradigm, and it's about programming with
+                functions</p>
             <p> ...so how FP is different from other paradigms?</p>
         </section>
         <section>
-        <p>Functional programs contain <span style="color:red">no assignment statements</span> , so variables, once given a value, never change.
-            More generally, functional programs contain <span style="color:red">no side effects</span> at all. A function call can have no effect other
-            than to compute its result. This eliminates a major source of bugs, and also makes the order of execution
-            irrelevant since no side effect can change an expression's value, it can be evaluated at any time.</p>
+            <p>Functional programs contain <span style="color:red">no assignment statements</span> , so variables, once
+                given a value, never change.
+                More generally, functional programs contain <span style="color:red">no side effects</span> at all. A
+                function call can have no effect other
+                than to compute its result. This eliminates a major source of bugs, and also makes the order of
+                execution
+                irrelevant since no side effect can change an expression's value, it can be evaluated at any time.</p>
             <p>This relieves the programmer of the burden of prescribing the flow of control. Since expressions can be
-            evaluated at any time, one can freely replace variables by their values and viceversa - that is, programs are
-                <span style="color:red">"referentially transparent"</span>. This freedom helps make functional programs more tractable mathematically than
-            their conventional counterparts</p>
+                evaluated at any time, one can freely replace variables by their values and viceversa - that is,
+                programs are
+                <span style="color:red">"referentially transparent"</span>. This freedom helps make functional programs
+                more tractable mathematically than
+                their conventional counterparts</p>
             <p style="float:right;font-size:20px !important">John Hughes, "Why Functional Programming Matters"</p>
         </section>
         <section>
@@ -48,8 +55,10 @@
             <ul>
                 <li>Variables once given a value, never change</li>
                 <li>No side effects because a function can just compute the result</li>
-                <li>Referentially transparent: The output will depend only in its input. One can freely replace the function
-                    by their output values</li>
+                <li>Referentially transparent: The output will depend only in its input. One can freely replace the
+                    function
+                    by their output values
+                </li>
             </ul>
         </section>
         <section>
@@ -66,9 +75,9 @@
             <img src="images/fp.jpg">
         </section>
         <section>
-           <p>This is in theory, but if a program doesn't have an observable result, it won't be very useful.</p>
+            <p>This is in theory, but if a program doesn't have an observable result, it won't be very useful.</p>
             <p>The idea is that the interaction with the outside world won't occur in the middle of a computation,
-            but only when you finish the computation.</p>
+                but only when you finish the computation.</p>
         </section>
         <section>
             <p>Functional programming is sometimes considered a set of techniques:</p>
@@ -100,7 +109,8 @@
             <ul>
                 <li>FP are deterministic, because the result will depend just from the input are easier to understand
                 </li>
-                <li>Functional programs are easier to test because there are no side effects (no interaction with the outside
+                <li>Functional programs are easier to test because there are no side effects (no interaction with the
+                    outside
                     world)
                 </li>
                 <li>FP are more modular, because they are built from functions with just input and output</li>
@@ -219,32 +229,32 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
             </code></pre>
         </section>
         <!--<section>-->
-            <!--&lt;!&ndash;I think I will skip the lazy section for the moment&ndash;&gt;-->
-            <!--<p>Being Lazy</p>-->
-            <!--<p>Lazy Initialization</p>-->
-            <!--<p>In object-oriented programming we ensure that objects are well constructed before any method calls</p>-->
-            <!--<p>This works well most of the time, but when parts of an object’s internals are heavyweight resources,-->
-                <!--we’ll benefit if we postpone creating them</p>-->
+        <!--&lt;!&ndash;I think I will skip the lazy section for the moment&ndash;&gt;-->
+        <!--<p>Being Lazy</p>-->
+        <!--<p>Lazy Initialization</p>-->
+        <!--<p>In object-oriented programming we ensure that objects are well constructed before any method calls</p>-->
+        <!--<p>This works well most of the time, but when parts of an object’s internals are heavyweight resources,-->
+        <!--we’ll benefit if we postpone creating them</p>-->
         <!--</section>-->
         <!--<section>-->
-            <!--Usual approach-->
-            <!--<pre><code data-trim data-noescape>-->
-                <!--public class Heavy {-->
-                    <!--public Heavy(){-->
-                        <!--System.out.println("Heavy created");-->
-                    <!--}-->
-                <!--}-->
+        <!--Usual approach-->
+        <!--<pre><code data-trim data-noescape>-->
+        <!--public class Heavy {-->
+        <!--public Heavy(){-->
+        <!--System.out.println("Heavy created");-->
+        <!--}-->
+        <!--}-->
 
-                <!--public class LoadHeavy {-->
-                    <!--private Heavy heavy;-->
+        <!--public class LoadHeavy {-->
+        <!--private Heavy heavy;-->
 
-                    <!--public Heavy getHeavy(){-->
-                        <!--if(-->
-                    <!--}-->
+        <!--public Heavy getHeavy(){-->
+        <!--if(-->
+        <!--}-->
 
-                <!--}-->
+        <!--}-->
 
-            <!--</code></pre>-->
+        <!--</code></pre>-->
         <!--</section>-->
         <section>
             <h3>Puzzle</h3>
@@ -258,7 +268,7 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
         }
     }
             </code></pre>
-<p>If the file log.txt exists, what is the result when you execute this program?</p>
+            <p>If the file log.txt exists, what is the result when you execute this program?</p>
             <ol>
                 <li>The first line of the file is printed</li>
                 <li>All the lines of the file are printed</li>
@@ -277,8 +287,7 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
             <pre><code data-trim data-noescape>
     Stream.of("/usr", "/tmp")
         .map(path -> {
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)));
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))){
                 return bufferedReader.readLine();
             } catch (Exception e) {
                 return e.getMessage();
@@ -304,21 +313,41 @@ Stream.of("log.txt", "NoExist.txt")
         </section>
 
         <section>
-            "Try": The vavr solution to wrap the exception similar to @SneakyThrows from lombok. Will wrap the exception
-            in a NonFatalException
+            <h3>Try</h3>
+            <p>"Try": represents a computation that may either result in an exception, or return a successfully computed value.
+                Instances of Try, are either an instance of <span style="color:red">Success</span> or <span style="color:red">Failure</span>.
+                It is similar to @SneakyThrows from lombok but it will wrap the exception in a NonFatalException</p>
 
             <pre><code data-trim data-noescape>
             Stream.of("log.txt", "NoExist.txt")
-                .map(path -> Try.of(() -> new BufferedReader(new FileReader(path))))
-                .peek(f -> f.onFailure(f2 -> System.out.println("File does not exist")))
+                .map(path ->
+                        Try.of(() -> new BufferedReader(new FileReader(path)).readLine())
+                                .getOrElse(() -> "File doesn't exist"))
+                .forEach(System.out::println);
+
+            Stream.of("log.txt", "NoExist.txt")
+                .map(path ->
+                        Try.of(() -> new BufferedReader(new FileReader(path)).readLine()))
                 .filter(Try::isSuccess)
-                .forEach(line-> System.out.println(line.get()));
+                .forEach(tryLine -> System.out.println(tryLine.get()));
             </code></pre>
+        </section>
+        <section>
+            <h3>CheckedFunction</h3>
+            <p>In vavr, if you need a function which throws a checked exception you can use CheckedFunction1, CheckedFunction2 and so on</p>
+            <pre><code data-trim data-noescape>
+        CheckedFunction1<String, String> line = path -> new BufferedReader(new FileReader(path)).readLine();
+
+        System.out.println(readLine.apply("fileNotExists.txt"));
+
+            </code></pre>
+Because the file doesn't exist the previous code will throw a java.io.FileNotFoundException at Runtime.
+
         </section>
         <section>
             <h3>Either</h3>
             <p>Either: Represents a value of two possible types.</p>
-                <p>By convention the right is the right value</p>
+            <p>By convention the right is the right value</p>
             <pre><code data-trim data-noescape>
             Stream.of("log.txt", "NoExist.txt")
             .map(this::eitherLineOrException)
@@ -336,8 +365,9 @@ Stream.of("log.txt", "NoExist.txt")
         </section>
 
         <section>
-            <p>Either or Try?</p>
-            <p> Only if you are interested in processing the exception you should use Either</p>
+            <p>Either vs Try vs CheckedFunction</p>
+            <p> Only if you are interested in processing the exception, and getting all the information from the exception you should use Either</p>
+            <p> If you are only interested in propagating the exception then use CheckedFunction</p>
             <p> In most of the cases, specially if you are just interested in propagating the exception you should use
                 Try</p>
         </section>
@@ -346,7 +376,7 @@ Stream.of("log.txt", "NoExist.txt")
             <h1>Functional Programming in Java</h1>
         </section>
         <section>
-            <p>Sort list in Java 7</p>
+            <h3>Sorting a list in Java 7</h3>
             <p> Before Java 8 we could sort a collection implementing a new Collector </p>
             <pre><code data-trim data-noescape>
         List persons = PersonFixture.persons();
@@ -360,7 +390,7 @@ Stream.of("log.txt", "NoExist.txt")
             <p>But how do we do multiple sortings? for instance how do we sort persons by age and then by name?</p>
         </section>
         <section>
-            <h3>Sort a list in Java 8</h3>
+            <h3>Sorting a list in Java 8</h3>
             <p>In Java 8 we could lambda expressions instead of the new collector and also we can reverse and/or
                 concatenate the sorting</p>
             <pre><code data-trim data-noescape>
@@ -436,7 +466,7 @@ Stream.of("log.txt", "NoExist.txt")
             <h3>Using GroupingBy in Java 8</h3>
             <p>Java 8 introduced a new collectio for grouping by an attribute</p>
             <p>Also you can use mapping to just return a map of your object</p>
-            <pre><code data-trim data-noescape>
+            <pre><code data-trim data-noescape class="java">
     Map personOlderThan30 = persons().stream()
         .filter(p -> p.getAge() > 30)
         .collect(Collectors.groupingBy(Person::getAge));
@@ -463,6 +493,69 @@ Stream.of("log.txt", "NoExist.txt")
 
             </code></pre>
         </section>
+        <section>
+            <h1>Functional Programming using vavr (javaslang)</h1>
+        </section>
+        <section>
+            Vavr is a functional library for Java 8+ that provides persistent data types and functional control
+            structures.
+        </section>
+        <section>
+            <h3>Function</h3>
+            <p>Java 8 just provides a Function which accepts one parameter and a BiFunction which accepts two
+                parameters.
+                Javaslang provides functions up to a limit of 8 parameters.
+                The functional interfaces are of called Function0, Function1, Function2, Function3 and so on.</p>
+            <pre><code data-trim data-noescape>
+            <!--Function3 &lt;Integer, Integer, Integer, Integer&gt; sum3 =(x, y, z) -> x + y + z;-->
+            </code></pre>
+
+        </section>
+        <section>
+            <h3>Functions - Currying</h3>
+            <p>Remember: Currying is the fact of evaluating function arguments one by one, producing a new function with
+                one
+                argument less on each step.</p>
+            <pre><code data-trim data-noescape>
+        Function2&lt;Integer, Integer, Integer&gt; sum = (x, y) -> x + y;
+        Function1&lt;Integer, Function1&lt;Integer, Integer&gt;&gt; sumCurried = sum.curried();
+
+        Function1&lt;Integer, Integer&gt; sum10 = sumCurried.apply(10);
+
+        assert sum10.apply(5) == 15;
+            </code></pre>
+        </section>
+        <section>
+            <h3>Functions - Lifting</h3>
+            <p>You can lift a partial function into a total function that returns an Option result</p>
+            <p>A partial function works properly only for some input values but not for all values</p>
+
+            <pre><code data-trim data-noescape>
+        Function2&lt;Integer, Integer, Integer&gt; divide = (a, b) -> a / b;
+        Function2&lt;Integer, Integer, Option&lt;Integer&gt;&gt; safeDivide =
+                Function2.lift(divide);
+
+        assert Option.of(2).equals(safeDivide.apply(8, 4));
+        assert Option.none().equals(safeDivide.apply(8, 0));
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Functions - Memoization</h3>
+            <p>Memoization is a form of caching. A memoized function executes only once and then returns the result from a cache.</p>
+            <pre><code data-trim data-noescape>
+        Function2&lt;Integer, Integer, Integer&gt; sum = (x, y) -> x + y;
+        Function2&lt;Integer, Integer, Integer&gt; sumMemoized = sum.memoized();
+        assert sumMemoized.apply(2).apply(3) == 5;
+        assert sumMemoized.apply(2).apply(3) == 5;
+
+        //Don't use it when you expect different values:
+        Function0&lt;Double&gt; randomMemoized= Function0.of(Math::random).memoized();
+        Double random1 = randomMemoized.apply();
+        Double random2 = randomMemoized.apply();
+        assert random1 == random2;
+            </code></pre>
+        </section>
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
@@ -476,6 +569,7 @@ Stream.of("log.txt", "NoExist.txt")
      });
 
     hljs.initHighlightingOnLoad();
+
 </script>
 </body>
 </html>
