@@ -8,12 +8,17 @@
     <artifactId>fp-presentation</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <lib.vavr.version>0.9.0</lib.vavr.version>
+    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>com.javaslang</groupId>
-            <artifactId>javaslang</artifactId>
-            <version>2.0.0-RC4</version>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>${lib.vavr.version}</version>
         </dependency>
+
 
         <dependency>
             <groupId>junit</groupId>
