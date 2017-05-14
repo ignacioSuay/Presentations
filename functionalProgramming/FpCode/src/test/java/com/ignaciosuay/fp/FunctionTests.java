@@ -1,10 +1,11 @@
 package com.ignaciosuay.fp;
 
-import javaslang.Function0;
-import javaslang.Function1;
-import javaslang.Function2;
-import javaslang.Function3;
-import javaslang.control.Option;
+
+import io.vavr.Function0;
+import io.vavr.Function1;
+import io.vavr.Function2;
+import io.vavr.Function3;
+import io.vavr.control.Option;
 import org.junit.Test;
 
 public class FunctionTests {

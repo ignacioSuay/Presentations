@@ -1,7 +1,10 @@
 package com.ignaciosuay.fp;
 
-import javaslang.control.Either;
-import javaslang.control.Try;
+
+import io.vavr.CheckedFunction1;
+import io.vavr.collection.Stream;
+import io.vavr.control.Either;
+import io.vavr.control.Try;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.function.Function;
 
 
 public class ExceptionTest {
@@ -25,10 +28,30 @@ public class ExceptionTest {
     }
 
     @Test
+    public void testPath() {
+
+        Function<String, String> readLine = path -> {
+            try {
+                return new BufferedReader(new FileReader(path)).readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "";
+        };
+
+        System.out.println(readLine.apply("log.txt"));
+
+        CheckedFunction1<String, String> line = path -> new BufferedReader(new FileReader(path)).readLine();
+
+        System.out.println(readLine.apply("loga.txt"));
+
+    }
+
+    @Test
     public void testFileException() {
         Stream.of("log.txt", "NoExist.txt")
                 .map(path -> {
-                    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))){
+                    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))) {
                         return bufferedReader.readLine();
                     } catch (Exception e) {
                         return e.getMessage();
@@ -41,7 +64,7 @@ public class ExceptionTest {
     public void testWrapFileException() {
         Stream.of("log.txt", "NoExist.txt")
                 .map(path -> {
-                    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))){
+                    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))) {
                         return bufferedReader.readLine();
                     } catch (Exception e) {
                         throw new RuntimeException("File doesn't exist");
@@ -53,13 +76,20 @@ public class ExceptionTest {
     @Test
     public void testVavrFileException() {
         Stream.of("log.txt", "NoExist.txt")
-                .map(path -> Try.of(() -> new BufferedReader(new FileReader(path))))
-                .peek(f -> f.onFailure(f2 -> System.out.println("File does not exist")))
+                .map(path ->
+                        Try.of(() -> new BufferedReader(new FileReader(path)).readLine())
+                                .getOrElse(() -> "File doesn't exist"))
+                .forEach(System.out::println);
+
+        Stream.of("log.txt", "NoExist.txt")
+                .map(path -> Try.of(() -> new BufferedReader(new FileReader(path)).readLine()))
                 .filter(Try::isSuccess)
-                .forEach(line-> System.out.println(line.get()));
+                .forEach(tryLine -> System.out.println(tryLine.get()));
+
+
     }
 
-    @Test(expected = Try.NonFatalException.class)
+    @Test(expected = FileNotFoundException.class)
     public void testVavrThrowException() {
         Stream.of("log.txt", "NoExist.txt")
                 .map(path -> Try.of(() -> new BufferedReader(new FileReader(path))))
@@ -74,12 +104,12 @@ public class ExceptionTest {
     public void usingEither() {
         Stream.of("log.txt", "NoExist.txt")
                 .map(this::eitherLineOrException)
-                .map(e->e.getOrElseGet(Throwable::getMessage))
+                .map(e -> e.getOrElseGet(Throwable::getMessage))
                 .forEach(System.out::println);
     }
 
     private Either<IOException, String> eitherLineOrException(String path) {
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             return Either.right(bufferedReader.readLine());
         } catch (IOException exception) {
             return Either.left(exception);

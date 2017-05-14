@@ -1,6 +1,6 @@
 package com.ignaciosuay.fp;
 
-import javaslang.collection.Stream;
+import io.vavr.collection.Stream;
 import org.junit.Test;
 
 
