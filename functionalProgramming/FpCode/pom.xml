@@ -19,7 +19,11 @@
             <version>${lib.vavr.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr-match</artifactId>
+            <version>${lib.vavr.version}</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
