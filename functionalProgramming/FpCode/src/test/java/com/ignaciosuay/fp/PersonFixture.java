@@ -7,14 +7,14 @@ import java.util.List;
 
 public class PersonFixture {
 
-    public static List<Person> persons(){
+    public static List<Person> persons() {
         List<Person> personList = new ArrayList<>();
-        personList.add(new Person(31, "Simon"));
-        personList.add(new Person(31, "Matt"));
-        personList.add(new Person(26, "Natxo"));
-        personList.add(new Person(19, "Laura"));
-        personList.add(new Person(15, "Johny"));
-        personList.add(new Person(50, "Mary"));
+        personList.add(new Person("Simon", 31));
+        personList.add(new Person("Matt", 31));
+        personList.add(new Person("Natxo", 26));
+        personList.add(new Person("Laura", 19));
+        personList.add(new Person("Johny", 15));
+        personList.add(new Person("Mary", 50));
         return personList;
     }
 }
