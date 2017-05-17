@@ -12,6 +12,8 @@
 
 
 
+
+
     </style>
 </head>
 <body>
@@ -314,8 +316,10 @@ Stream.of("log.txt", "NoExist.txt")
 
         <section>
             <h3>Try</h3>
-            <p>"Try": represents a computation that may either result in an exception, or return a successfully computed value.
-                Instances of Try, are either an instance of <span style="color:red">Success</span> or <span style="color:red">Failure</span>.
+            <p>"Try": represents a computation that may either result in an exception, or return a successfully computed
+                value.
+                Instances of Try, are either an instance of <span style="color:red">Success</span> or <span
+                        style="color:red">Failure</span>.
                 It is similar to @SneakyThrows from lombok but it will wrap the exception in a NonFatalException</p>
 
             <pre><code data-trim data-noescape>
@@ -334,14 +338,15 @@ Stream.of("log.txt", "NoExist.txt")
         </section>
         <section>
             <h3>CheckedFunction</h3>
-            <p>In vavr, if you need a function which throws a checked exception you can use CheckedFunction1, CheckedFunction2 and so on</p>
+            <p>In vavr, if you need a function which throws a checked exception you can use CheckedFunction1,
+                CheckedFunction2 and so on</p>
             <pre><code data-trim data-noescape>
         CheckedFunction1<String, String> line = path -> new BufferedReader(new FileReader(path)).readLine();
 
         System.out.println(readLine.apply("fileNotExists.txt"));
 
             </code></pre>
-Because the file doesn't exist the previous code will throw a java.io.FileNotFoundException at Runtime.
+            Because the file doesn't exist the previous code will throw a java.io.FileNotFoundException at Runtime.
 
         </section>
         <section>
@@ -366,7 +371,8 @@ Because the file doesn't exist the previous code will throw a java.io.FileNotFou
 
         <section>
             <p>Either vs Try vs CheckedFunction</p>
-            <p> Only if you are interested in processing the exception, and getting all the information from the exception you should use Either</p>
+            <p> Only if you are interested in processing the exception, and getting all the information from the
+                exception you should use Either</p>
             <p> If you are only interested in propagating the exception then use CheckedFunction</p>
             <p> In most of the cases, specially if you are just interested in propagating the exception you should use
                 Try</p>
@@ -498,9 +504,14 @@ Because the file doesn't exist the previous code will throw a java.io.FileNotFou
         </section>
         <section>
             <h3>Vavr</h3>
-            <p>Vavr is an object-functional language extension to Java 8, which aims to reduce the lines of code and increase code quality. It provides persistent collections, functional abstractions for error handling, concurrent programming, pattern matching and much more.</p>
-            <p>Vavr fuses the power of object-oriented programming with the elegance and robustness of functional programming. The most interesting part is a feature-rich, persistent collection library that smoothly integrates with Java's standard collections.</p>
-            <p>Because Vavr does not depend on any libraries (other than the JVM) you can easily add it as standalone .jar to your classpath.</p>
+            <p>Vavr is an object-functional language extension to Java 8, which aims to reduce the lines of code and
+                increase code quality. It provides persistent collections, functional abstractions for error handling,
+                concurrent programming, pattern matching and much more.</p>
+            <p>Vavr fuses the power of object-oriented programming with the elegance and robustness of functional
+                programming. The most interesting part is a feature-rich, persistent collection library that smoothly
+                integrates with Java's standard collections.</p>
+            <p>Because Vavr does not depend on any libraries (other than the JVM) you can easily add it as standalone
+                .jar to your classpath.</p>
 
         </section>
 
@@ -517,16 +528,18 @@ Because the file doesn't exist the previous code will throw a java.io.FileNotFou
 
         <section>
             <h3>Collections</h3>
-            <p>With Javaslang there has been put much effort into designing an all-new collection library for Java which meets the requirements of functional programming, namely immutability.</p>
+            <p>With Javaslang there has been put much effort into designing an all-new collection library for Java which
+                meets the requirements of functional programming, namely immutability.</p>
             <p>In the current Java collections api methods like add, clear, remove aims us to mutate the list.</p>
         </section>
 
         <section>
-            <h3> <span style="text-transform: lowercase;color:red"> &lambda;</span> - Function</h3>
+            <h3><span style="text-transform: lowercase;color:red"> &lambda;</span> - Function</h3>
             <p> Java 8 just provides a Function which accepts one parameter and a BiFunction which accepts two
-                parameters.<p>
+                parameters.
+            <p>
             <p>Javaslang provides functions up to a limit of 8 parameters.
-            The functional interfaces are of called Function0, Function1, Function2, Function3 and so on.</p>
+                The functional interfaces are of called Function0, Function1, Function2, Function3 and so on.</p>
             <pre><code data-trim data-noescape>
 Function3 &lt;Integer, Integer, Integer, Integer&gt; sum3 =(x, y, z) -> x + y + z;
             </code></pre>
@@ -568,7 +581,8 @@ Function3 &lt;Integer, Integer, Integer, Integer&gt; sum3 =(x, y, z) -> x + y + 
 
         <section>
             <h3>Functions - Memoization</h3>
-            <p>Memoization is a form of caching. A memoized function executes only once and then returns the result from a cache.</p>
+            <p>Memoization is a form of caching. A memoized function executes only once and then returns the result from
+                a cache.</p>
             <pre><code data-trim data-noescape>
         Function2&lt;Integer, Integer, Integer&gt; sum = (x, y) -> x + y;
         Function2&lt;Integer, Integer, Integer&gt; sumMemoized = sum.memoized();
@@ -585,12 +599,13 @@ Function3 &lt;Integer, Integer, Integer, Integer&gt; sum3 =(x, y, z) -> x + y + 
         <section>
             <h3>Values</h3>
             <p>Functional programming is all about values and transformation of values using functions</p>
-            <p>A value extends Iterable and it is Immutable</p>
+            <p>A value extends <span style="color:red">Iterable</span> and it is <span
+                    style="color:red">immutable</span></p>
             <ul>
                 <li>Option</li>
                 <li>Try</li>
-                <li>Lazy</li>
                 <li>Either</li>
+                <li>Lazy</li>
                 <li>Future</li>
                 <li>Validation</li>
             </ul>
@@ -598,7 +613,8 @@ Function3 &lt;Integer, Integer, Integer, Integer&gt; sum3 =(x, y, z) -> x + y + 
 
         <section>
             <h3>Values: Option vs Optional</h3>
-            <p>Option implements <span style="color:red">Serializable</span> and <span style="color:red">Iterable</span></p>
+            <p>Option implements <span style="color:red">Serializable</span> and <span style="color:red">Iterable</span>
+            </p>
             <p>Java8:</p>
             <pre><code data-trim data-noescape>
 List&lt;Optional&lt;String&gt;&gt; optionalList = Arrays.asList(Optional.of("a"), Optional.empty(), Optional.of("c"));
@@ -617,6 +633,55 @@ List&lt;String&gt; listString = optionList.flatMap(x -> x);
             </code></pre>
 
         </section>
+        <section>
+            <h3>Values: Validation</h3>
+            <p>The Validation control facilitates accumulating errors. Similar to Either, it will contain on the left
+                side the Error and on the right side the value.</p>
+            <p>A valid value is contained in a Validation.Valid instance, a list of validation errors is contained in a
+                Validation.Invalid instance.</p>
+            <pre><code data-trim data-noescape>
+public class PersonValidator {
+
+    public Validation&lt;Seq&lt;String&gt;, Person&gt; validatePerson(String name, int age) {
+        return Validation.combine(validateName(name), validateAge(age)).ap((name2, age2) -> new Person(name2, age2));
+    }
+
+    private Validation&lt;String, String&gt; validateName(String name) {
+        return StringUtils.isAlpha(name)
+                ? Validation.valid(name)
+                : Validation.invalid("Name must contain only Unicode letters");
+    }
+
+    private Validation&lt;String, Integer&gt; validateAge(int age) {
+        return age < 0 || age > 150
+                ? Validation.invalid("Age must be between 0 and 150")
+                : Validation.valid(age);
+    }
+}
+            </code></pre>
+        </section>
+        <section>
+            <h3>Values: Validation</h3>
+            <pre><code data-trim data-noescape>
+    @Test
+    public void testValidation(){
+        PersonValidator personValidator = new PersonValidator();
+
+        Validation&lt;Seq&lt;String&gt;, Person&gt; suay = personValidator.validatePerson("suay", 31);
+        assert suay.isValid();
+
+        Validation&lt;Seq&lt;String&gt;, Person&gt; suayInvalid = personValidator.validatePerson("suay-invalid", 31);
+        assert !suayInvalid.isValid();
+        assert suayInvalid.getError().apply(0).equals("Name must contain only Unicode letters");
+
+        Validation&lt;Seq&lt;String&gt;, Person&gt; suayInvalid2 = personValidator.validatePerson("suay-invalid", 160);
+        assert !suayInvalid.isValid();
+        assert suayInvalid2.getError().apply(0).equals("Name must contain only Unicode letters");
+        assert suayInvalid2.getError().apply(1).equals("Age must be between 0 and 150");
+    }
+                </code></pre>
+
+        </section>
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
@@ -630,6 +695,8 @@ List&lt;String&gt; listString = optionList.flatMap(x -> x);
      });
 
     hljs.initHighlightingOnLoad();
+
+
 
 </script>
 </body>
