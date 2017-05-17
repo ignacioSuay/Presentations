@@ -3,10 +3,10 @@ package com.ignaciosuay.fp.model;
 import lombok.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Person {
 
-    private int age;
-
     private String name;
+    private int age;
 }
