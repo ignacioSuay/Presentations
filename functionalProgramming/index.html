@@ -532,6 +532,25 @@ Stream.of("log.txt", "NoExist.txt")
                 meets the requirements of functional programming, namely immutability.</p>
             <p>In the current Java collections api methods like add, clear, remove aims us to mutate the list.</p>
         </section>
+        <section>
+            <h3>Tuples</h3>
+            <p>A Tuple combines a fixed number of elements together so that they can be passed around as a whole.
+                Unlike an array or list, a tuple can <span style="text-transform: lowercase;color:red">hold objects with different types</span>, but they are also <span style="text-transform: lowercase;color:red">immutable.</span> </p>
+            <p>Vavr has a collection of Tuple1, Tuple2... Tuple8</p>
+            <pre><code data-trim data-noescape>
+    Tuple2&lt;Integer, String&gt; tuple = Tuple.of(1, "a");
+    assert tuple._1 == 1;
+    assert tuple._2 == "a";
+
+    Tuple2&lt;Integer, String&gt; tuple2 = tuple.map(k -> k + 1, v -> v);
+    assert tuple2._1 == 2;
+    assert tuple2._2 == "a";
+
+    String apply = tuple.apply((k, v) -> k + v);
+    assert apply.equals("1a");
+            </code></pre>
+
+        </section>
 
         <section>
             <h3><span style="text-transform: lowercase;color:red"> &lambda;</span> - Function</h3>
