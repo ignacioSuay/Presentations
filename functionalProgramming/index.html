@@ -14,6 +14,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -535,7 +536,8 @@ Stream.of("log.txt", "NoExist.txt")
         <section>
             <h3>Tuples</h3>
             <p>A Tuple combines a fixed number of elements together so that they can be passed around as a whole.
-                Unlike an array or list, a tuple can <span style="text-transform: lowercase;color:red">hold objects with different types</span>, but they are also <span style="text-transform: lowercase;color:red">immutable.</span> </p>
+                Unlike an array or list, a tuple can <span style="text-transform: lowercase;color:red">hold objects with different types</span>,
+                but they are also <span style="text-transform: lowercase;color:red">immutable.</span></p>
             <p>Vavr has a collection of Tuple1, Tuple2... Tuple8</p>
             <pre><code data-trim data-noescape>
     Tuple2&lt;Integer, String&gt; tuple = Tuple.of(1, "a");
@@ -701,6 +703,29 @@ public class PersonValidator {
                 </code></pre>
 
         </section>
+        <section>Pattern Matching
+            <p>Vavr introduced a new match API that is close to Scala’s match. The basic syntax is close to Java’s
+                switch. Pattern matching is a great feature that saves us from writing stacks of if-then-else branches.
+                It reduces the amount of code while focusing on the relevant parts.</p>
+            <pre><code data-trim data-noescape>
+Option option = Option.of(1);
+String optionResult = Match(option).of(
+        Case($Some($(1)), () -> "is 1"),
+        Case($Some($()), () -> "has a value but it is not 1"),
+        Case($None(), () -> "empty")
+);
+assert optionResult.equals("is 1");
+
+Validation suay = personValidator.validatePerson("suay", -1);
+String validationResult = Match(suay).of(
+        Case($Valid($()), "valid"),
+        Case($Invalid($(List.of("Age must be between 0 and 150"))), "invalid age"),
+        Case($Invalid($()), "any other error")
+);
+assert validationResult.equals("invalid age");
+        </code></pre>
+
+        </section>
     </div>
 </div>
 <script src="../reveal.js/js/reveal.js"></script>
@@ -714,6 +739,7 @@ public class PersonValidator {
      });
 
     hljs.initHighlightingOnLoad();
+
 
 
 
