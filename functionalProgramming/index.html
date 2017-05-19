@@ -58,13 +58,11 @@
         </section>
         <section>
             <h3>Characteristics</h3>
-            <p>What does that mean that there are no assigments?</p>
             <ul>
                 <li>Variables once given a value, never change</li>
                 <li>No side effects because a function can just compute the result</li>
                 <li>Referentially transparent: The output will depend only in its input. One can freely replace the
-                    function
-                    by their output values
+                    function by their output values
                 </li>
             </ul>
         </section>
@@ -84,16 +82,16 @@
         <section>
             <p>This is in theory, but if a program doesn't have an observable result, it won't be very useful.</p>
             <p>The idea is that the interaction with the outside world won't occur in the middle of a computation,
-                but only when you finish the computation.</p>
+                but only when you start or finish the computation.</p>
         </section>
         <section>
             <p>Functional programming is sometimes considered a set of techniques:</p>
             <ul>
                 <li>High-order functions</li>
-                <li>Anonymous functions</li>
+                <li>Anonymous functions (lambda)</li>
                 <li>Closures</li>
                 <li>Currying</li>
-                <li>Lazy evaluation (streams and supplier)</li>
+                <li>Lazy evaluation </li>
                 <li>Parametric polymorphism (generics)</li>
                 <li>Algebraic data types(composite types)</li>
             </ul>
@@ -112,14 +110,10 @@
             </code></pre>
         </section>
         <section>
-            <p>Benefits</p>
+            <h3>Benefits</h3>
             <ul>
-                <li>FP are deterministic, because the result will depend just from the input are easier to understand
-                </li>
-                <li>Functional programs are easier to test because there are no side effects (no interaction with the
-                    outside
-                    world)
-                </li>
+                <li>FP are deterministic, because the result will depend just from the input are easier to understand</li>
+                <li>Functional programs are easier to test because there are no side effects (no interaction with the outside world) </li>
                 <li>FP are more modular, because they are built from functions with just input and output</li>
                 <li>FP makes compositions and recombination much easier.</li>
                 <li>Functional programs are inherently thread-safe because they avoid mutation of shared state</li>
