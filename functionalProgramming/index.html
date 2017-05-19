@@ -85,7 +85,7 @@
                 but only when you start or finish the computation.</p>
         </section>
         <section>
-            <p>Functional programming is sometimes considered a set of techniques:</p>
+            <h4>Functional programming is sometimes considered a set of techniques:</h4>
             <ul>
                 <li>High-order functions</li>
                 <li>Anonymous functions (lambda)</li>
@@ -97,10 +97,17 @@
             </ul>
         </section>
         <section>
-            <h3>Higher-Order Functions (HOF)</h3>
-            <p>A function which takes a function as an argument and/or returns a function.</p>
+            <h3>Benefits</h3>
+            <ul>
+                <li>Functional programs are deterministic. Because the result will depend just from the input are easier to understand</li>
+                <li>Functional programs are easier to test because there are no side effects (no interaction with the outside world) </li>
+                <li>Functional programs are more modular, because they are built from functions with just input and output</li>
+                <li>Functional programs are inherently thread-safe because they avoid mutation of shared state</li>
+                <li><span style="color:red">Functional programming aims to let you more easily write programs that are concise, bug-free and parallelizable. </span></li>
+            </ul>
         </section>
         <section>
+            <h3>Question</h3>
             <p>Is this code functional?</p>
             <pre><code class="java">
             public static int div(int a, int b) {
@@ -110,18 +117,7 @@
             </code></pre>
         </section>
         <section>
-            <h3>Benefits</h3>
-            <ul>
-                <li>FP are deterministic, because the result will depend just from the input are easier to understand</li>
-                <li>Functional programs are easier to test because there are no side effects (no interaction with the outside world) </li>
-                <li>FP are more modular, because they are built from functions with just input and output</li>
-                <li>FP makes compositions and recombination much easier.</li>
-                <li>Functional programs are inherently thread-safe because they avoid mutation of shared state</li>
-
-            </ul>
-        </section>
-        <section>
-            <p>Functions in Java</p>
+            <h3>Functions in Java</h3>
             <p>A method can be functional if it respects the requirements of a pure function:</p>
             <ul>
                 <li>It must not mutate anything outside the function. No internal mutation may be visible from the
@@ -132,70 +128,20 @@
                 <li>It must always return a value.</li>
                 <li>When called with the same argument, it must always return the same result.</li>
             </ul>
-            Methods could be functional but you cannot pass a method as an argument, and you cannot compose methods
-            without applying them
-        </section>
-
-        <section>
-            <p>Java functional interface</p>
-            <p>Java provides an interface called Function&lt;T,R&gt; </p>
-            <p>T - the type of the input to the function</p>
-            <p>R - the type of the result of the function</p>
-
-            And this interface declare 4 methods: R apply(T t), Function andThen(Function after), Function
-            compose(Function before), Function identity()
-
-            <pre><code class="java">
-            Function&lt;Integer,Integer&gt; duplicate = x -> x * 2
-
-            duplicate.apply(3) // 6
-            </code></pre>
+            <p>Methods could be functional but you cannot pass a method as an argument, and you cannot compose methods
+                without applying them</p>
         </section>
         <section>
-            How would you create a function that first duplicates an integer and after adds it 2?
-
-            <p>Solution</p>
-            <pre><code data-trim data-noescape>
-Function&lt;Integer, Integer&gt; duplicate = x -> x * 2;
-Function&lt;Integer, Integer&gt; add2 = x -> x + 2;
-
-Function&lt;Integer, Integer&gt; duplicateAndSum = duplicate.andThen(add2);
-Function&lt;Integer, Integer&gt; duplicateAndSum = add2.compose(duplicate);
-Function&lt;Integer, Integer&gt; duplicateAndSum = duplicate.andThen(x -> x + 2);
-
-duplicateAndSum.apply(4) // 10
-            </code></pre>
-        </section>
-        <section>
-            <p>What about functions of several arguments?</p>
-            <p>A function can contain only a tuple of arguments</p>
+            <h3>What about functions of several arguments?</h3>
+            <p>How can we handle functions with multiple arguments?</p>
             <p>There are 2 options to handle more than one argument:</p>
             <ul>
                 <li>Curried functions</li>
-                <li>Use tuples of n cardinality: pair, triplet, quartet...</li>
+                <li>Use tuples</li>
             </ul>
         </section>
         <section>
-            <p>Tuples</p>
-            <pre><code data-trim data-noescape>
-Function&lt;Tuple&lt;Double, Double&gt;, Double&lt; addTax= tuple -> tuple._2 + tuple._2 * tuple._1;
-
-BiFunction&lt;Double, Double, Double&gt; addTax = (price, tax) -> price + (price * tax);
-BinaryOperator&lt;Double&gt; addTaxBi = (price, tax) -> price + (price * tax);
-
-//For more than 2 element you will need to create your own function
-@FunctionalInterface
-interface Function3 &lt;A, B, C, R&gt; {
-    public R apply (A a, B b, C c);
-}
-
-Function3 &lt;String, Integer, Double, Double&gt; multiAdder = (a, b, c) -> {
-    return Double.parseDouble (a) + b + c;
-};
-            </code></pre>
-        </section>
-        <section>
-            <p>Curried functions (1/2)</p>
+            <h3>Curried functions (1/2)</h3>
             <p>Currying is the fact of evaluating function arguments one by one, producing a new function with one
                 argument less on each step.</p>
             <p>Arguments can be applied one by one, each application of one argument returning a new function, except
@@ -213,7 +159,7 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
             WHATTTT?????
         </section>
         <section>
-            <p>Partial application</p>
+            <h3>Partial application</h3>
             <p>Currying is related to, but not the same as, partial application.</p>
             <p>Currying is very useful when arguments of a function must be evaluated in different places. Using
                 currying, one may evaluate one argument in some component, then pass the result to another component to
@@ -229,34 +175,6 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
 
             </code></pre>
         </section>
-        <!--<section>-->
-        <!--&lt;!&ndash;I think I will skip the lazy section for the moment&ndash;&gt;-->
-        <!--<p>Being Lazy</p>-->
-        <!--<p>Lazy Initialization</p>-->
-        <!--<p>In object-oriented programming we ensure that objects are well constructed before any method calls</p>-->
-        <!--<p>This works well most of the time, but when parts of an object’s internals are heavyweight resources,-->
-        <!--we’ll benefit if we postpone creating them</p>-->
-        <!--</section>-->
-        <!--<section>-->
-        <!--Usual approach-->
-        <!--<pre><code data-trim data-noescape>-->
-        <!--public class Heavy {-->
-        <!--public Heavy(){-->
-        <!--System.out.println("Heavy created");-->
-        <!--}-->
-        <!--}-->
-
-        <!--public class LoadHeavy {-->
-        <!--private Heavy heavy;-->
-
-        <!--public Heavy getHeavy(){-->
-        <!--if(-->
-        <!--}-->
-
-        <!--}-->
-
-        <!--</code></pre>-->
-        <!--</section>-->
         <section>
             <h3>Puzzle</h3>
             <pre><code data-trim data-noescape>
@@ -379,6 +297,36 @@ Stream.of("log.txt", "NoExist.txt")
 
         <section>
             <h1>Functional Programming in Java</h1>
+        </section>
+        <section>
+            <h3>Java functional interface</h3>
+            <p>Java provides an interface called Function&lt;T,R&gt; </p>
+            <p>T - the type of the input to the function</p>
+            <p>R - the type of the result of the function</p>
+
+            <p>And this interface declare 4 methods: R apply(T t), Function andThen(Function after), Function
+                compose(Function before), Function identity()</p>
+
+            <pre><code class="java">
+            Function&lt;Integer,Integer&gt; duplicate = x -> x * 2
+
+            duplicate.apply(3) // 6
+            </code></pre>
+        </section>
+        <section>
+            How would you create a function that first duplicates an integer and after adds it 2?
+
+            <p>Solution</p>
+            <pre><code data-trim data-noescape>
+Function&lt;Integer, Integer&gt; duplicate = x -> x * 2;
+Function&lt;Integer, Integer&gt; add2 = x -> x + 2;
+
+Function&lt;Integer, Integer&gt; duplicateAndSum = duplicate.andThen(add2);
+Function&lt;Integer, Integer&gt; duplicateAndSum = add2.compose(duplicate);
+Function&lt;Integer, Integer&gt; duplicateAndSum = duplicate.andThen(x -> x + 2);
+
+duplicateAndSum.apply(4) // 10
+            </code></pre>
         </section>
         <section>
             <h3>Sorting a list in Java 7</h3>
