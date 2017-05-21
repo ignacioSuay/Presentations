@@ -1,6 +1,5 @@
 *.iml
 */target/*
 */.idea/*
-highlight/*
 functionalProgramming/FpCode/target/*
 functionalProgramming/FpCode/.idea/*
