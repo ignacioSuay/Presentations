@@ -108,11 +108,15 @@ public class ExceptionTest {
                 .forEach(System.out::println);
     }
 
-    private Either<IOException, String> eitherLineOrException(String path) {
+    private Either<IOException, String> eitherLineOrExceptionOld(String path) {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             return Either.right(bufferedReader.readLine());
         } catch (IOException exception) {
             return Either.left(exception);
         }
+    }
+
+    private Either<Throwable, String> eitherLineOrException(String path) {
+        return Try.of(() -> new BufferedReader(new FileReader(path)).readLine()).toEither();
     }
 }

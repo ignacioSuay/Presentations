@@ -23,6 +23,7 @@ public class FunctionTests {
         Function1<Integer, Function1<Integer, Function1<Integer, Integer>>> curried3 = sum3.curried();
         Function1<Integer, Function1<Integer, Integer>> sum25 = curried3.apply(25);
         assert sum25.apply(2).apply(3) == 30;
+
     }
 
     @Test
