@@ -8,7 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 public class PersonValidator {
 
     public Validation<Seq<String>, Person> validatePerson(String name, int age) {
-        return Validation.combine(validateName(name), validateAge(age)).ap((name2, age2) -> new Person(name2, age2));
+        return Validation.combine(validateName(name), validateAge(age))
+                .ap(Person::new);
     }
 
     private Validation<String, String> validateName(String name) {
