@@ -371,9 +371,10 @@ Stream.of("log.txt", "NoExist.txt")
             <p>In vavr, if you need a function which throws a checked exception you can use CheckedFunction1,
                 CheckedFunction2 and so on</p>
             <pre><code data-trim data-noescape>
-        CheckedFunction1<String, String> line = path -> new BufferedReader(new FileReader(path)).readLine();
+CheckedFunction1<String, String> line = path ->
+                new BufferedReader(new FileReader(path)).readLine();
 
-        System.out.println(readLine.apply("fileDoesntExist.txt"));
+System.out.println(readLine.apply("fileDoesntExist.txt"));
 
             </code></pre>
             <p>Because the file doesn't exist the previous code will throw a java.io.FileNotFoundException at Runtime.</p>
@@ -429,14 +430,17 @@ private Either &lt;Throwable, String&gt; eitherLineOrException(String path) {
                 <li>Tuple</li>
                 <li>&lambda; Function</li>
                 <li>Values</li>
+                <li>Pattern Matching</li>
             </ul>
         </section>
 
         <section>
             <h3>Collections</h3>
-            <p>With vavr there has been put much effort into designing an all-new collection library for Java which
-                meets the requirements of functional programming, namely immutability.</p>
-            <p>In the current Java collections api methods like add, clear, remove aims us to mutate the list.</p>
+            <p> In the current Java collections api methods like add, clear, remove aims us to mutate the list.</p>
+            <p> Vavr has desgined an all-new <span style="color:red"> immutable and persistent</span> collection library which meets the requirements of functional programming</p>
+            <p> A persistent data structure is a data structure that always preserves the previous version of itself
+                when it is modified. Such data structures are effectively immutable, as their operations do not
+                (visibly) update the structure in-place, but instead always yield a new updated structure.</p>
         </section>
         <section>
             <h3>Tuples</h3>
