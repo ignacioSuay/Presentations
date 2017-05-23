@@ -602,6 +602,8 @@ public void testValidation(){
 
     Validation&lt;Seq&lt;String&gt;, Person&gt; suay = personValidator.validatePerson("suay", 31);
     assert suay.isValid();
+    assert suay.get().getName().equals("suay");
+    assert suay.get().getAge() == 31;
 
     Validation&lt;Seq&lt;String&gt;, Person&gt; suayInvalid = personValidator.validatePerson("suay-invalid", 31);
     assert !suayInvalid.isValid();
