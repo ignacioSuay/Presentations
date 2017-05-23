@@ -14,6 +14,8 @@ public class ValidationTest {
 
         Validation<Seq<String>, Person> suay = personValidator.validatePerson("suay", 31);
         assert suay.isValid();
+        assert suay.get().getName().equals("suay");
+        assert suay.get().getAge() == 31;
 
         Validation<Seq<String>, Person> suayInvalid = personValidator.validatePerson("suay-invalid", 31);
         assert !suayInvalid.isValid();
