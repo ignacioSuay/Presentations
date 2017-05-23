@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="../reveal.js/css/reveal.css">
     <link rel="stylesheet" href="../reveal.js/css/theme/league.css">
     <!--<link rel="stylesheet" href="../highlight/styles/default.css">-->
-    <link rel="stylesheet" href="../lib/css/zenburn.css">
+    <link rel="stylesheet" href="../css/zenburn.css">
     <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">-->
     <style type="text/css">
         p,ul,ol{font-size:30px !important}
@@ -372,7 +372,7 @@ Stream.of("log.txt", "NoExist.txt")
             <p>In vavr, if you need a function which throws a checked exception you can use CheckedFunction1,
                 CheckedFunction2 and so on</p>
             <pre><code data-trim data-noescape>
-CheckedFunction1<String, String> line = path ->
+CheckedFunction1&lt;String, String&gt; line = path ->
                 new BufferedReader(new FileReader(path)).readLine();
 
 System.out.println(readLine.apply("fileDoesntExist.txt"));
