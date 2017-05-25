@@ -8,6 +8,7 @@
     <style type="text/css">
         p,ul,ol{font-size:30px !important}
 
+
     </style>
     <title>Functional Programming</title>
 </head>
@@ -46,7 +47,8 @@
             <ul>
                 <li>Variables once given a value, never change</li>
                 <li>No side effects because a function can just compute the result</li>
-                <li><span style="color:blue">Referentially transparent:</span> The output will depend only in its input. One can freely replace the
+                <li><span style="color:blue">Referentially transparent:</span> The output will depend only in its input.
+                    One can freely replace the
                     function by their output values
                 </li>
             </ul>
@@ -76,7 +78,7 @@
                 <li>Anonymous functions (lambda)</li>
                 <li>Closures</li>
                 <li>Currying</li>
-                <li>Lazy evaluation </li>
+                <li>Lazy evaluation</li>
                 <li>Parametric polymorphism (generics)</li>
                 <li>Algebraic data types(composite types)</li>
             </ul>
@@ -84,11 +86,18 @@
         <section>
             <h3>Benefits</h3>
             <ul>
-                <li>Functional programs are deterministic. Because the result will depend just from the input are easier to understand</li>
-                <li>Functional programs are easier to test because there are no side effects (no interaction with the outside world) </li>
-                <li>Functional programs are more modular, because they are built from functions with just input and output</li>
+                <li>Functional programs are deterministic. Because the result will depend just from the input are easier
+                    to understand
+                </li>
+                <li>Functional programs are easier to test because there are no side effects (no interaction with the
+                    outside world)
+                </li>
+                <li>Functional programs are more modular, because they are built from functions with just input and
+                    output
+                </li>
                 <li>Functional programs are inherently thread-safe because they avoid mutation of shared state</li>
-                <li><span style="color:red">Functional programming aims to let you more easily write programs that are concise, bug-free and parallelizable. </span></li>
+                <li><span style="color:red">Functional programming aims to let you more easily write programs that are concise, bug-free and parallelizable. </span>
+                </li>
             </ul>
         </section>
         <section>
@@ -163,8 +172,13 @@ Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
                 addtax18.apply(100)
             </code></pre>
         </section>
-        <section>
+        <section data-transition="slide">
             <h3>How would you create a curried function of a sum of 3 Integers?</h3>
+            <pre><code data-trim data-noescape class="fragment">
+Function&lt;Integer, Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt;&gt; sum3Curried =
+            x -> y -> z -> x + y + z;
+            </code></pre>
+            </p>
         </section>
         <section>
             <h1>Functional Programming in Java 8</h1>
@@ -376,7 +390,8 @@ CheckedFunction1&lt;String, String&gt; line = path ->
 System.out.println(readLine.apply("fileDoesntExist.txt"));
 
             </code></pre>
-            <p>Because the file doesn't exist the previous code will throw a java.io.FileNotFoundException at Runtime.</p>
+            <p>Because the file doesn't exist the previous code will throw a java.io.FileNotFoundException at
+                Runtime.</p>
 
         </section>
         <section>
@@ -400,7 +415,8 @@ private Either &lt;Throwable, String&gt; eitherLineOrException(String path) {
             <h3>Either vs Try vs CheckedFunction</h3>
             <p> Only if you are interested in processing the exception, and getting all the information from the
                 exception you should use Either</p>
-            <p> If you are only interested in propagating the exception then use CheckedFunction and you have to define your own function (not in a map)</p>
+            <p> If you are only interested in propagating the exception then use CheckedFunction and you have to define
+                your own function (not in a map)</p>
             <p> In most of the cases, specially if you are just interested in propagating the exception you should use
                 Try. Also try allows you to recover from any error</p>
         </section>
@@ -416,7 +432,8 @@ private Either &lt;Throwable, String&gt; eitherLineOrException(String path) {
             <p>Vavr fuses the power of object-oriented programming with the elegance and robustness of functional
                 programming. The most interesting part is a feature-rich, persistent collection library that smoothly
                 integrates with Java's standard collections.</p>
-            <p>Because <span style="color:red"> Vavr does not depend on any libraries </span> (other than the JVM) you can easily add it as standalone
+            <p>Because <span style="color:red"> Vavr does not depend on any libraries </span> (other than the JVM) you
+                can easily add it as standalone
                 .jar to your classpath.</p>
 
         </section>
@@ -436,7 +453,8 @@ private Either &lt;Throwable, String&gt; eitherLineOrException(String path) {
         <section>
             <h3>Collections</h3>
             <p> In the current Java collections api methods like add, clear, remove aims us to mutate the list.</p>
-            <p> Vavr has desgined an all-new <span style="color:red"> immutable and persistent</span> collection library which meets the requirements of functional programming</p>
+            <p> Vavr has desgined an all-new <span style="color:red"> immutable and persistent</span> collection library
+                which meets the requirements of functional programming</p>
             <p> A persistent data structure is a data structure that always preserves the previous version of itself
                 when it is modified. Such data structures are effectively immutable, as their operations do not
                 (visibly) update the structure in-place, but instead always yield a new updated structure.</p>
@@ -642,28 +660,37 @@ assert validationResult.equals("invalid age");
         <section>
             <h3>Resources: Books</h3>
 
-                <p><img style="width:10%; float:left" src="images/fpBook.jpg"> Functional Programming in Java: Harnessing the power of java 8 lambda expressions, by: Venkat
-                    Subramaniam
-                </p>
-                <br/>
-                <p><img style="width:10%; float:left" src="images/fpBook2.jpg"> Functional Programming in Java: How functional techniques improve your Java programs, by:
-                    Pierre-Yves Saumont
+            <p><img style="width:10%; float:left" src="images/fpBook.jpg"> Functional Programming in Java: Harnessing
+                the power of java 8 lambda expressions, by: Venkat
+                Subramaniam
+            </p>
+            <br/>
+            <p><img style="width:10%; float:left" src="images/fpBook2.jpg"> Functional Programming in Java: How
+                functional techniques improve your Java programs, by:
+                Pierre-Yves Saumont
         </section>
         <section>
             <h3>Resources</h3>
             <p>Videos:</p>
-            <p>Javaslang - Functional Java Done Right by Grzegorz Piwowarek: <a href="https://www.youtube.com/watch?v=gRJmpmYMHE0">https://www.youtube.com/watch?v=gRJmpmYMHE0 </a></p>
-            <p>A Pragmatist’s Guide to Functional Geekery by Michał Płachta: <a href="https://www.youtube.com/watch?v=3bkb6U5jJbs">https://www.youtube.com/watch?v=3bkb6U5jJbs</a></p>
+            <p>Javaslang - Functional Java Done Right by Grzegorz Piwowarek: <a
+                    href="https://www.youtube.com/watch?v=gRJmpmYMHE0">https://www.youtube.com/watch?v=gRJmpmYMHE0 </a>
+            </p>
+            <p>A Pragmatist’s Guide to Functional Geekery by Michał Płachta: <a
+                    href="https://www.youtube.com/watch?v=3bkb6U5jJbs">https://www.youtube.com/watch?v=3bkb6U5jJbs</a>
+            </p>
             <p>Documentation:</p>
             <p>Vavr documentation: http://www.vavr.io/vavr-docs/</p>
         </section>
         <section>
             <h3>Source code & Others</h3>
             <p>Please find all the code in this presentation in my github account:</p>
-            <p><a href="https://github.com/ignacioSuay/Presentations">https://github.com/ignacioSuay/Presentations</a></p>
-            <p> and you could find the presentation at: <a href="http://ignaciosuay.com/fp">http://ignaciosuay.com/fp</a></p>
+            <p><a href="https://github.com/ignacioSuay/Presentations">https://github.com/ignacioSuay/Presentations</a>
+            </p>
+            <p> and you could find the presentation at: <a
+                    href="http://ignaciosuay.com/fp">http://ignaciosuay.com/fp</a></p>
             <br/>
-            <p>Presentation realized with <a href="http://lab.hakim.se/reveal-js/#/">Reveal.js</a>: The html presentation framework</p>
+            <p>Presentation realized with <a href="http://lab.hakim.se/reveal-js/#/">Reveal.js</a>: The html
+                presentation framework</p>
         </section>
         <section>
             <h1>That's all folks!</h1>
@@ -681,6 +708,7 @@ assert validationResult.equals("invalid age");
      });
 
     hljs.initHighlightingOnLoad();
+
 </script>
 </body>
 </html>
