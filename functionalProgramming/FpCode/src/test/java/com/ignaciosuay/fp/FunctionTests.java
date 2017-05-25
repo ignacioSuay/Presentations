@@ -8,6 +8,8 @@ import io.vavr.Function3;
 import io.vavr.control.Option;
 import org.junit.Test;
 
+import java.util.function.Function;
+
 public class FunctionTests {
 
     Function2<Integer, Integer, Integer> sum = (x, y) -> x + y;
@@ -48,6 +50,14 @@ public class FunctionTests {
 
         assert Option.of(2).equals(safeDivide.apply(8,4));
         assert Option.none().equals(safeDivide.apply(8, 0));
+    }
+
+    @Test
+    public void function3(){
+        Function<Integer, Function<Integer, Function<Integer, Integer>>> sum3Curried = x -> y -> z -> x + y + z;
+
+        assert 10 == sum3Curried.apply(2).apply(3).apply(5);
+
     }
 
 }
