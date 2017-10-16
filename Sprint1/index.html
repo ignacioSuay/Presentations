@@ -1,0 +1,108 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/league.css">
+    <!--<link rel="stylesheet" href="../highlight/styles/default.css">-->
+    <link rel="stylesheet" href="../css/zenburn.css">
+    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">-->
+    <style type="text/css">
+        p, ul, ol {
+            font-size: 30px !important
+        }
+    </style>
+    <title>Sprint 1</title>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Sprint 1 - Review</h2>
+            <p style="float:right">17th October 2017</p>
+        </section>
+        <section>
+            <h2>1. Back-end tasks completed:</h2>
+            <ul>
+                <li>Back-end service created</li>
+                <li>Integrated with GraphQL</li>
+                <li>Search and Retrieve implemented</li>
+                <li>Running in jenkins</li>
+                <li>Deployed to Pivotal Cloud Foundry</li>
+                <li>Mock application for Customer Onboarding Api (Process Api)</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Deployed to Pivotal Cloud Foundry</h3>
+            <img src="images/pcf.png">
+        </section>
+        <section>
+            <h3>Continuous integration with Jenkins</h3>
+            <img src="images/jenkins.png">
+        </section>
+
+        <section>
+            <h3>Sonar Analysis</h3>
+            <img src="images/sonar.png">
+        </section>
+        <section>
+            <h3>Mock application for Customer Onboarding Api </h3>
+            <img src="images/api.png">
+        </section>
+        <section>
+            <h3>Wiremock - Mock application for Customer Onboarding Api </h3>
+            <p>WireMock is a flexible API mocking tool for fast, robust and comprehensive testing.</p>
+            <p>Mapping file:</p>
+            <pre><code class="java">
+            {
+              "request": {
+                "method": "GET",
+                "urlPattern": "/customer-onboarding/v1.0/applications/([0-9]*)"
+              },
+              "response": {
+                "status": 200,
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "bodyFileName": "v1/applications/inProgress.json"
+              }
+            }
+            </code></pre>
+        </section>
+        <section>
+            <h3>Wiremock - Mock application for Customer Onboarding Api </h3>
+            Response (v1/applications/inProgress.json):
+            <pre><code class="java">
+            {
+              "application": {
+                "status": "In Progress",
+                "applicationDate": "2017-03-16",
+                "applicationType": "SOLE",
+                "lastUpdateDate": "2017-03-16",
+                "chanlId": "OHB",
+                "empId": "QATST241",
+                "branch": "002",
+                "applnType": "C"
+              }
+            }
+            </code></<pre>
+        </section>
+        <section>
+            <h1>That's all folks!</h1>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js/js/reveal.js"></script>
+<script src="../highlight/highlight.js"></script>
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>-->
+<script>
+    Reveal.initialize();
+    Reveal.configure({
+        slideNumber: 'c/t',
+        history: true,
+        width: "90%"
+    });
+
+    hljs.initHighlightingOnLoad();
+
+</script>
+</body>
+</html>
