@@ -16,18 +16,16 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h2>Sprint 1 - Review</h2>
-            <p style="float:right">17th October 2017</p>
+            <h2>Show and Tell</h2>
+            <p style="float:right">2nd November 2017</p>
         </section>
         <section>
             <h2>1. Back-end tasks completed:</h2>
             <ul>
-                <li>Back-end service created</li>
-                <li>Integrated with GraphQL</li>
-                <li>Search and Retrieve implemented</li>
+                <li>Back-end service created and integrated with GraphQL</li>
+                <li>Search and Retrieve functionality implemented</li>
                 <li>Running in jenkins</li>
                 <li>Deployed to Pivotal Cloud Foundry</li>
-                <li>Mock application for Customer Onboarding Api (Process Api)</li>
             </ul>
         </section>
         <section>
@@ -38,7 +36,6 @@
             <h3>Continuous integration with Jenkins</h3>
             <img src="images/jenkins.png">
         </section>
-
         <section>
             <h3>Sonar Analysis</h3>
             <img src="images/sonar.png">
@@ -46,44 +43,6 @@
         <section>
             <h3>Mock application for Customer Onboarding Api </h3>
             <img src="images/api.png">
-        </section>
-        <section>
-            <h3>Wiremock - Mock application for Customer Onboarding Api </h3>
-            <p>WireMock is a flexible API mocking tool for fast, robust and comprehensive testing.</p>
-            <p>Mapping file:</p>
-            <pre><code class="java">
-            {
-              "request": {
-                "method": "GET",
-                "urlPattern": "/customer-onboarding/v1.0/applications/([0-9]*)"
-              },
-              "response": {
-                "status": 200,
-                "headers": {
-                  "Content-Type": "application/json"
-                },
-                "bodyFileName": "v1/applications/inProgress.json"
-              }
-            }
-            </code></pre>
-        </section>
-        <section>
-            <h3>Wiremock - Mock application for Customer Onboarding Api </h3>
-            Response (v1/applications/inProgress.json):
-            <pre><code class="java">
-            {
-              "application": {
-                "status": "In Progress",
-                "applicationDate": "2017-03-16",
-                "applicationType": "SOLE",
-                "lastUpdateDate": "2017-03-16",
-                "chanlId": "OHB",
-                "empId": "QATST241",
-                "branch": "002",
-                "applnType": "C"
-              }
-            }
-            </code></<pre>
         </section>
         <section>
             <h1>That's all folks!</h1>
