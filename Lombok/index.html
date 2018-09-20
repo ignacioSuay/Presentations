@@ -88,8 +88,8 @@
         </section>
         <section>
             <h3>@Builder</h3>
-            <p>The Builder pattern, instead of making the desired object directly, the client calls a constructor (or static factory) with all of the required parameters and gets a builder object. Then the client calls setter-like methods on the builder object to set each optional parameter of interest. Finally, the client calls a parameterless build method to generate the object.</p>
-            <p> The Builder pattern is a good choice when designing classes whose constructors or static factories would have more than a handful of parameters, especially if many of the parameters are optional or of identical type. Client code is much easier to read and write with builders than with telescoping constructors.</p>
+            <p><i>The Builder pattern, instead of making the desired object directly, the client calls a constructor (or static factory) with all of the required parameters and gets a builder object. Then the client calls setter-like methods on the builder object to set each optional parameter of interest. Finally, the client calls a parameterless build method to generate the object.</i></p>
+            <p><i> The Builder pattern is a good choice when designing classes whose constructors or static factories <span style="color:yellow">would have more than a handful of parameters, especially if many of the parameters are optional</span> or of identical type. Client code is much easier to read and write with builders than with telescoping constructors.</i></p>
             <p style="float:right">Effective Java by Joshua Bloch </p>
         </section>
         <section>
@@ -124,7 +124,7 @@
                 public List&lt;String&lt; readLines(String pathFile) {
                     Path path = Paths.get(pathFile);
                     return Files.readAllLines(path);
-            }
+                }
             </code></pre>
         </section>
         <section>
@@ -138,7 +138,7 @@
         </section>
         <section>
             <h1>That's all folks!</h1>
-            <img src="images/minions.gif">
+	    <img src="images/minions.gif">
         </section>
     </div>
 </div>
