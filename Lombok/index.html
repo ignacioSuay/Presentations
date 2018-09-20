@@ -25,664 +25,116 @@
                 <p> Never write another getter or equals method again. </p>
         </section>
         <section>
-            <p>Functional programs contain <span style="color:red">no assignment statements</span> , so variables, once
-                given a value, never change.
-                More generally, functional programs contain <span style="color:red">no side effects</span> at all. A
-                function call can have no effect other than to compute its result.</p>
-            <p>Since expressions can be
-                evaluated at any time, one can freely replace variables by their values and viceversa - that is,
-                programs are
-                <span style="color:red">"referentially transparent"</span>.</p>
-            <p style="float:right;font-size:20px !important">John Hughes, "Why Functional Programming Matters"</p>
+            <h3>How to use it?</h3>
+            <pre><code class="xml">
+                &lt;dependency&gt;
+                    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+                    &lt;version&gt;1.18.2&lt;/version&gt;
+                    &lt;scope&gt;provided&lt;/scope&gt;
+                &lt;/dependency&gt;
+            </code></pre>
         </section>
         <section>
-            <h3>Characteristics</h3>
+            <h3>Features</h3>
             <ul>
-                <li>Variables once given a value, never change</li>
-                <li>No side effects because a function can just compute the result</li>
-                <li><span style="color:blue">Referentially transparent:</span> The output will depend only in its input.
-                    One can freely replace the
-                    function by their output values
-                </li>
+                <li>@Getter and @Setter</li>
+                <li>@ToString and @EqualsAndHashCode</li>
+                <li>@NoArgsConstructor, @AllArgsConstructor and @RequiredArgsConstructor</li>
+                <li>@Data and @Value</li>
+                <li>@Builder</li>
+                <li>@Log, @Log4j, @Slf4j, @XSl4j, @CommonsLog, @JBossLog</li>
+                <li>@SneakyThrows</li>
+                <li>val and var</li>
             </ul>
         </section>
         <section>
-            <h3>Characteristics</h3>
-            <p>What does it mean that in FP there are no side effects?</p>
-            <ul>
-                <li>No mutation of variables</li>
-                <li>No printing to the console or to any device</li>
-                <li>No writing to files, databases, networks and so on</li>
-                <li>No exception throwing</li>
-            </ul>
-        </section>
-        <section>
-            <img src="images/fp.jpg">
-        </section>
-        <section>
-            <p>This is in theory, but if a program doesn't have an observable result, it won't be very useful.</p>
-            <p>The idea is that the interaction with the outside world won't occur in the middle of a computation,
-                but only when you start or finish the computation.</p>
-        </section>
-        <section>
-            <h4>Functional programming is sometimes considered a set of techniques:</h4>
-            <ul>
-                <li>High-order functions</li>
-                <li>Anonymous functions (lambda)</li>
-                <li>Closures</li>
-                <li>Currying</li>
-                <li>Lazy evaluation</li>
-                <li>Parametric polymorphism (generics)</li>
-                <li>Algebraic data types(composite types)</li>
-            </ul>
-        </section>
-        <section>
-            <h3>Benefits</h3>
-            <ul>
-                <li>Functional programs are deterministic. Because the result will depend just from the input are easier
-                    to understand
-                </li>
-                <li>Functional programs are easier to test because there are no side effects (no interaction with the
-                    outside world)
-                </li>
-                <li>Functional programs are more modular, because they are built from functions with just input and
-                    output
-                </li>
-                <li>Functional programs are inherently thread-safe because they avoid mutation of shared state</li>
-                <li><span style="color:red">Functional programming aims to let you more easily write programs that are concise, bug-free and parallelizable. </span>
-                </li>
-            </ul>
-        </section>
-        <section>
-            <h3>Question</h3>
-            <p>Is this code functional?</p>
+            <h3>@Getter and @Setter</h3>
+            <p>You can annotate any field with @Getter and/or @Setter, to let lombok generate the default getter/setter automatically.</p>
+            <p>The generated getter/setter method will be public unless you explicitly specify an AccessLevel
+                Legal access levels are PUBLIC, PROTECTED, PACKAGE, and PRIVATE.</p>
             <pre><code class="java">
-            public static int div(int a, int b) {
-                log.info("divide {} / {} ", a, b)
-                return a / b;
-            }
+                @Setter(AccessLevel.PROTECTED)
+                private String name;
             </code></pre>
+            <p>You can also put a @Getter and/or @Setter annotation on a class. In that case, it's as if you annotate all the non-static fields in that class with the annotation.</p>
         </section>
         <section>
-            <h3>Functions</h3>
-            <p>A method can be functional if it respects the requirements of a pure function:</p>
-            <ul>
-                <li>It must not mutate anything outside the function. No internal mutation may be visible from the
-                    outside.
-                </li>
-                <li>It must not mutate its argument.</li>
-                <li>It must not throw errors or exceptions.</li>
-                <li>It must always return a value.</li>
-                <li>When called with the same argument, it must always return the same result.</li>
-            </ul>
-            <pre><code data-trim data-noescape>
-                Function&lt;Integer, Integer&gt; add10 = x -> x + 10;
-
-                add10.apply(20) //30
-            </code></pre>
-        </section>
-        <section>
-            <h3>What about functions of several arguments?</h3>
-            <p>How can we handle functions with multiple arguments?</p>
-            <p>There are 2 options to handle more than one argument:</p>
-            <ul>
-                <li>Curried functions</li>
-                <li>Tuples</li>
-            </ul>
-        </section>
-        <section>
-            <h3>Curried functions</h3>
-            <p>Currying is the fact of evaluating function arguments one by one, producing a new function with one
-                argument less on each step.</p>
-            <p>Arguments can be applied one by one, each application of one argument returning a new function, except
-                for the last one.</p>
-
-            <p>Let’s try to define a function for adding two integers.</p>
-            <pre><code data-trim data-noescape>
-Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt; add = x -> y -> x + y;
-
-                add.apply(2).apply(3) //5
-            </code></pre>
-
-        </section>
-        <section>
-            <img src="images/tenor.gif" style="width:60%"/>
-        </section>
-        <section>
-            <h3>Partial application</h3>
-            <p>Currying is very useful when arguments of a function must be evaluated in different places. Using
-                currying, one may evaluate one argument in some component, then pass the result to another component to
-                evaluate another argument, and so on until all arguments are evaluated.</p>
-
-            <pre><code data-trim data-noescape>
-        Function&lt;Double, Function&lt;Double, Double&gt;&gt; addTax
-            = tax -> price -> price + (price * tax);
-
-                Function addTax18 = addTax.apply(0.18)
-
-                addtax18.apply(100)
-                addtax18.apply(50)
-                addtax18.apply(100)
-            </code></pre>
-        </section>
-        <section data-transition="slide">
-            <h3>How would you create a curried function of a sum of 3 Integers?</h3>
-            <pre><code data-trim data-noescape class="fragment">
-Function&lt;Integer, Function&lt;Integer, Function&lt;Integer, Integer&gt;&gt;&gt; sum3Curried =
-            x -> y -> z -> x + y + z;
-            </code></pre>
-        </section>
-        <section>
-            <h1>Functional Programming in Java 8</h1>
-        </section>
-        <section>
-            <h3>Java functional interface</h3>
-            <p>Java provides an interface called Function&lt;T,R&gt; </p>
-            <p>T - the type of the input to the function</p>
-            <p>R - the type of the result of the function</p>
-
-            <p>And this interface declare 4 methods: R apply(T t), Function andThen(Function after), Function
-                compose(Function before), Function identity()</p>
-
+            <h3>@ToString and @EqualsAndHashCode</h3>
+            <p><span style="color:red">@ToString</span> will generate an implementation of the toString() method. By default, all non-static fields will be printed. If you want to skip some fields, you can annotate these fields with <span style="color:red">@ToString.Exclude</span>. Alternatively, you can specify exactly which fields you wish to be used by using <span style="color:red">@ToString(onlyExplicitlyIncluded = true)</span>, then marking each field you want to include with <span style="color:red">@ToString.Include.</span></p>
+            <p>Any class definition may be annotated with <span style="color:red">@EqualsAndHashCode</span> to let lombok generate implementations of the equals(Object other) and hashCode() methods.</p>
             <pre><code class="java">
-            Function&lt;Integer,Integer&gt; duplicate = x -> x * 2
-
-            duplicate.apply(3) // 6
+                @EqualsAndHashCode
+                public class EqualsAndHashCodeExample {
+                  private transient int transientVar = 10;
+                  private String name;
+                  private double score;
+                  @EqualsAndHashCode.Exclude private Shape shape = new Square(5, 10);
+                  private String[] tags;
+                  @EqualsAndHashCode.Exclude private int id;
             </code></pre>
         </section>
         <section>
-            <h3>Sorting a list in Java 7</h3>
-            <p> Before Java 8 we could sort a collection implementing a new Collector </p>
-            <pre><code data-trim data-noescape>
-        List persons = PersonFixture.persons();
-        Collections.sort(persons, new Comparator&lt;Person&gt;() {
-            @Override
-            public int compare(Person p1, Person p2) {
-                return p1.getAge() - p2.getAge();
+            <h3>@NoArgsConstructor, @AllArgsConstructor and @RequiredArgsConstructor</h3>
+            <p><span style="color:red">@NoArgsConstructor</span> will generate a constructor with no parameters</p>
+            <p><span style="color:red">@AllArgsConstructor</span> generates a constructor with 1 parameter for each field in your class</p>
+            <p><span style="color:red">@RequiredArgsConstructor</span> generates a constructor with 1 parameter for each field that requires special handling. All non-initialized final fields get a paramete</p>
+        </section>
+        <section>
+            <h3>@Data and @Value</h3>
+            <p><span style="color:red">@Data</span> is a convenient shortcut annotation that bundles the features of <span style="color:red">@ToString, @EqualsAndHashCode, @Getter / @Setter and @RequiredArgsConstructor</span> together: In other words, <span style="color:red">@Data</span> generates all the boilerplate that is normally associated with simple POJOs. </p>
+            <p>note: No constructor will be generated if any explicitly written constructors already exist</p>
+            <p><span style="color:red">@Value</span> is the immutable variant of @Data; all fields are made private and final by default, and setters are not generated</p>
+        </section>
+        <section>
+            <h3>@Builder</h3>
+            <p>The Builder pattern, instead of making the desired object directly, the client calls a constructor (or static factory) with all of the required parameters and gets a builder object. Then the client calls setter-like methods on the builder object to set each optional parameter of interest. Finally, the client calls a parameterless build method to generate the object.</p>
+            <p> The Builder pattern is a good choice when designing classes whose constructors or static factories would have more than a handful of parameters, especially if many of the parameters are optional or of identical type. Client code is much easier to read and write with builders than with telescoping constructors.</p>
+            <p style="float:right">Effective Java by Joshua Bloch </p>
+        </section>
+        <section>
+            <h3>@Builder</h3>
+            <p><span style="color:red">@Builder</span> lets you automatically produce the code required to have your class be instantiable with code such as:</p>
+            <pre><code class="java">
+                Person.builder()
+                .name("Pep Guardiola")
+                .city("Manchester")
+                .job("Man city coach")
+                .build();
+            </code></pre>
+        </section>
+        <section>
+            <h3>@Log</h3>
+            <ul>
+                <li><span style="color:red">@Log</span>-> Creates private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(LogExample.class.getName());</li>
+                <li><span style="color:red">@Log4j</span>-> Creates private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(LogExample.class)</li>
+                <li><span style="color:red">@Log4j2</span>-> Creates private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(LogExample.class);</li>
+                <li><span style="color:red">@Slf4j</span>-> Creates private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);</li>
+                <li><span style="color:red">@XSlf4j</span>-> Creates private static final org.slf4j.ext.XLogger log = org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);</li>
+                <li><span style="color:red">@CommonsLog</span>-> Creates private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(LogExample.class);</li>
+                <li><span style="color:red">@JBossLog</span>-> Creates private static final org.jboss.logging.Logger log = org.jboss.logging.Logger.getLogger(LogExample.class);</li>
+            </ul>
+        </section>
+        <section>
+            <h3>@SneakyThrows</h3>
+            <p><span style="color:red">@SneakyThrows</span> can be used to sneakily throw checked exceptions without actually declaring this in your method's throws clause</p>
+            <p> The code generated by lombok will not ignore, wrap, replace, or otherwise modify the thrown checked exception; it simply fakes out the compiler</p>
+            <pre><code class="java">
+                @SneakyThrows
+                public List&lt;String&lt; readLines(String pathFile) {
+                    Path path = Paths.get(pathFile);
+                    return Files.readAllLines(path);
             }
-        });
-            </code></pre>
-            <p>But how do we do multiple sortings? for instance how do we sort persons by age and then by name?</p>
-        </section>
-        <section>
-            <h3>Sorting a list in Java 8</h3>
-            <p>In Java 8 we could lambda expressions instead of the new collector and also we can reverse and/or
-                concatenate the sorting</p>
-            <pre><code data-trim data-noescape>
-    persons.stream()
-        .sorted(comparing(Person::getAge))
-        .forEach(System.out::println);
-
-    persons.stream()
-        .sorted(comparing(Person::getAge).reversed())
-        .forEach(System.out::println);
-
-    persons.stream()
-        .sorted(comparing(Person::getAge).thenComparing(Person::getName))
-        .forEach(System.out::println);
-        </code></pre>
-        </section>
-
-        <section>
-            <h3>Using Collector</h3>
-            <p>We could add elements to a list using the following code:</p>
-            <pre><code data-trim data-noescape>
-    List personOlderThan30 = new ArrayList<>();
-    persons().stream()
-            .filter(p -> p.getAge() > 30)
-            .forEach(personOlderThan30::add);
-
-    List personOlderThan30 = persons().stream()
-        .filter(p -> p.getAge() > 30)
-        .collect(Collectors.toList());
-            </code></pre>
-            <p>Both snippets will produce the same result, but we could run the second version in parallel!</p>
-        </section>
-        <section>
-            <h3>Creating a custom collector</h3>
-            <p>You can create a new collector by passing to the collect function 3 parameters:</p>
-            <ul>
-                <li>The new collection</li>
-                <li>The function to add one element</li>
-                <li>The function to join 2 collections</li>
-            </ul>
-            <pre><code data-trim data-noescape>
-    List personOlderThan30 = persons().stream()
-        .filter(p -> p.getAge() > 30)
-        .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-
-    JSONArray personOlderThan30 = persons().stream()
-        .filter(p -> p.getAge() > 30)
-        .map(JSONObject::new)
-        .collect(JSONArray::new, JSONArray::put, JSONArray::put);
-            </code></pre>
-        </section>
-
-        <section>
-            <h3>Using GroupingBy - Before Java 8</h3>
-            <p>Before Java 8 in order to group a list of objects by one attribute you had to something similar to the
-                following code:</p>
-            <pre><code data-trim data-noescape>
-        Map&lt;Integer, List&lt;Person&gt;&gt; hashMap = new HashMap<>();
-        List&lt;Person&gt; persons = persons();
-
-        for(Person person : persons) {
-            if (!hashMap.containsKey(person.getAge())) {
-                List&lt;Person&gt; list = new ArrayList<>();
-                list.add(person);
-                hashMap.put(person.getAge(), list);
-            } else {
-                hashMap.get(person.getAge()).add(person);
-            }
-        }
             </code></pre>
         </section>
         <section>
-            <h3>Using GroupingBy in Java 8</h3>
-            <p>Java 8 introduced a new collectio for grouping by an attribute</p>
-            <p>Also you can use mapping to just return a map of your object</p>
-            <pre><code data-trim data-noescape class="java">
-Map&lt;Integer, List&lt;Person&gt;&gt; personOlderThan30 = persons().stream()
-    .filter(p -> p.getAge() > 30)
-    .collect(Collectors.groupingBy(Person::getAge));
-// {50=[Person(age=50, name=Mary)],
-// 31=[Person(age=31, name=Simon), Person(age=31, name=Matt)]}
-
-Map&lt;Integer, List&lt;String&gt;&gt; personOlderThan30 = persons().stream()
-    .filter(p -> p.getAge() > 30)
-    .collect(Collectors.groupingBy(Person::getAge, mapping(Person::getName, toList())));
-// {50=[Mary], 31=[Simon, Matt]}
+            <h3>val and var</h3>
+            <p>You can use val as the type of a local variable declaration instead of actually writing the type. When you do this, the type will be inferred from the initializer expression. The local variable will also be made final.</p>
+            <p>This feature works on local variables and on foreach loops only, not on fields. The initializer expression is required.</p>
+            <p>var works exactly like val, except the local variable is not marked as final</p>
+            <pre><code class="java">
+                    val example = new ArrayList&lt;String&gt;();
             </code></pre>
-        </section>
-
-        <section>
-            <h3>Puzzle</h3>
-            <pre><code data-trim data-noescape>
-    public class Test{
-        public void main (String[] args) throws IOException {
-            Function&lt;String, String&gt; readLine = path ->
-                new BufferedReader(new FileReader(path)).readLine();
-
-            System.out.println(readLine.apply("log.txt"));
-        }
-    }
-            </code></pre>
-            <p>If the file log.txt exists, what is the result when you execute this program?</p>
-            <ol>
-                <li>The first line of the file is printed</li>
-                <li>All the lines of the file are printed</li>
-                <li>An IOException is thrown at runtime</li>
-                <li>Compilation fails</li>
-            </ol>
-        </section>
-
-        <section>
-            <h3>Handling Exceptions</h3>
-            <p>When we have to handle exceptions in FP we have different options:</p>
-            <p>One option is to wrap the code in a try and catch and handle the exception</p>
-
-            <pre><code data-trim data-noescape>
-    Stream.of("/usr", "/tmp")
-        .map(path -> {
-            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))){
-                return bufferedReader.readLine();
-            } catch (Exception e) {
-                return e.getMessage();
-            }
-        })
-        .forEach(System.out::println);
-                </code></pre>
-        </section>
-        <section>
-            <h3>Exceptions</h3>
-            <p>Another possible solution is to wrap the checked exception and throw a Runtime Exception</p>
-            <pre><code data-trim data-noescape>
-Stream.of("log.txt", "NoExist.txt")
-    .map(path -> {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(path)))){
-            return bufferedReader.readLine();
-        } catch (Exception e) {
-            throw new IllegalArgumentException("File doesn't exist");
-        }
-    })
-    .forEach(System.out::println);
-            </code></pre>
-
-        </section>
-
-        <section>
-            <h3>Vavr - Try</h3>
-            <p>"Try": represents a computation that may either result in an exception, or return a successfully computed
-                value.
-                Instances of Try, are either an instance of <span style="color:red">Success</span> or <span
-                        style="color:red">Failure</span>.
-                It is similar to @SneakyThrows in lombok.</p>
-
-            <pre><code data-trim data-noescape>
-            Stream.of("log.txt", "NoExist.txt")
-                .map(path ->
-                        Try.of(() -> new BufferedReader(new FileReader(path)).readLine())
-                                .getOrElse(() -> "File doesn't exist"))
-                .forEach(System.out::println);
-
-            Stream.of("log.txt", "NoExist.txt")
-                .map(path ->
-                        Try.of(() -> new BufferedReader(new FileReader(path)).readLine()))
-                .forEach(tryLine -> System.out.println(tryLine.get()));
-            </code></pre>
-        </section>
-        <section>
-            <h3>Vavr - CheckedFunction</h3>
-            <p>In vavr, if you need a function which throws a checked exception you can use CheckedFunction1,
-                CheckedFunction2 and so on</p>
-            <pre><code data-trim data-noescape>
-CheckedFunction1&lt;String, String&gt; line = path ->
-                new BufferedReader(new FileReader(path)).readLine();
-
-System.out.println(readLine.apply("fileDoesntExist.txt"));
-
-            </code></pre>
-            <p>Because the file doesn't exist the previous code will throw a java.io.FileNotFoundException at
-                Runtime.</p>
-
-        </section>
-        <section>
-            <h3>Vavr - Either</h3>
-            <p>Either: Represents a value of two possible types.</p>
-            <p>By convention the right is the <span style="color:green"> right value</span></p>
-            <pre><code data-trim data-noescape>
-Stream.of("log.txt", "NoExist.txt")
-    .map(this::eitherLineOrException)
-    .map(e->e.getOrElseGet(Throwable::getMessage))
-    .forEach(System.out::println);
-
-private Either &lt;Throwable, String&gt; eitherLineOrException(String path) {
-    return Try.of(() ->
-        new BufferedReader(new FileReader(path)).readLine()).toEither();
-}
-                </code></pre>
-        </section>
-
-        <section>
-            <h3>Either vs Try vs CheckedFunction</h3>
-            <p> Only if you are interested in processing the exception, and getting all the information from the
-                exception you should use Either</p>
-            <p> If you are only interested in propagating the exception then use CheckedFunction and you have to define
-                your own function (not in a map)</p>
-            <p> In most of the cases, specially if you are just interested in propagating the exception you should use
-                Try. Also try allows you to recover from any error</p>
-        </section>
-
-        <section>
-            <h1>Functional Programming using vavr (javaslang)</h1>
-        </section>
-        <section>
-            <h3>Vavr</h3>
-            <p>Vavr is an object-functional language extension to Java 8, which aims to reduce the lines of code and
-                increase code quality. It provides persistent <span style="color:red"> collections, functional abstractions for error handling,
-                    concurrent programming, pattern matching and much more.</span></p>
-            <p>Vavr fuses the power of object-oriented programming with the elegance and robustness of functional
-                programming. The most interesting part is a feature-rich, persistent collection library that smoothly
-                integrates with Java's standard collections.</p>
-            <p>Because <span style="color:red"> Vavr does not depend on any libraries </span> (other than the JVM) you
-                can easily add it as standalone
-                .jar to your classpath.</p>
-
-        </section>
-
-        <section>
-            <h3>vavr</h3>
-            <p>Vavr provide a set of tools that makes it easier to use a functional approach by provinding: </p>
-            <ul>
-                <li>Immutable and persistent Collections</li>
-                <li>Tuple</li>
-                <li>&lambda; Function</li>
-                <li>Values</li>
-                <li>Pattern Matching</li>
-            </ul>
-        </section>
-
-        <section>
-            <h3>Collections</h3>
-            <p> In the current Java collections api methods like add, clear, remove aims us to mutate the list.</p>
-            <p> Vavr has desgined an all-new <span style="color:red"> immutable and persistent</span> collection library
-                which meets the requirements of functional programming</p>
-            <p> A persistent data structure is a data structure that always preserves the previous version of itself
-                when it is modified. Such data structures are effectively immutable, as their operations do not
-                (visibly) update the structure in-place, but instead always yield a new updated structure.</p>
-        </section>
-        <section>
-            <h3>Tuples</h3>
-            <p>A Tuple combines a fixed number of elements together so that they can be passed around as a whole.
-                Unlike an array or list, a tuple can <span style="text-transform: lowercase;color:red">hold objects with different types</span>,
-                but they are also <span style="text-transform: lowercase;color:red">immutable.</span></p>
-            <p>Vavr has a collection of Tuple1, Tuple2... Tuple8</p>
-            <pre><code data-trim data-noescape>
-    Tuple2&lt;Integer, String&gt; tuple = Tuple.of(1, "a");
-    assert tuple._1 == 1;
-    assert tuple._2 == "a";
-
-    Tuple2&lt;Integer, String&gt; tuple2 = tuple.map(k -> k + 1, v -> v);
-    assert tuple2._1 == 2;
-    assert tuple2._2 == "a";
-
-    String apply = tuple.apply((k, v) -> k + v);
-    assert apply.equals("1a");
-            </code></pre>
-
-        </section>
-
-        <section>
-            <h3><span style="text-transform: lowercase;color:red"> &lambda;</span> - Function</h3>
-            <p> Java 8 just provides a Function which accepts one parameter and a BiFunction which accepts two
-                parameters.
-            <p>
-            <p>Vavr provides functions up to a limit of 8 parameters.
-                The functional interfaces are of called Function0, Function1, Function2, Function3 and so on.</p>
-            <pre><code data-trim data-noescape>
-Function3 &lt;Integer, Integer, Integer, Integer&gt; sum3 =(x, y, z) -> x + y + z;
-            </code></pre>
-            <ul>
-                <li>Currying</li>
-                <li>Lifting</li>
-                <li>Memoization</li>
-            </ul>
-        </section>
-        <section>
-            <h3>Functions - Currying</h3>
-            <p>Remember: Currying is the fact of evaluating function arguments one by one, producing a new function with
-                one
-                argument less on each step.</p>
-            <pre><code data-trim data-noescape>
-    Function2&lt;Integer, Integer, Integer&gt; sum = (x, y) -> x + y;
-    Function1&lt;Integer, Function1&lt;Integer, Integer&gt;&gt; sumCurried = sum.curried();
-
-    Function1&lt;Integer, Integer&gt; sum10 = sumCurried.apply(10);
-
-    assert sum10.apply(5) == 15;
-            </code></pre>
-        </section>
-        <section>
-            <h3>Functions - Lifting</h3>
-            <p>You can lift a partial function into a total function that returns an Option result</p>
-            <p>A partial function works properly only for some input values but not for all values</p>
-
-            <pre><code data-trim data-noescape>
-        Function2&lt;Integer, Integer, Integer&gt; divide = (a, b) -> a / b;
-        Function2&lt;Integer, Integer, Option&lt;Integer&gt;&gt; safeDivide =
-                Function2.lift(divide);
-
-        assert Option.of(2).equals(safeDivide.apply(8, 4));
-        assert Option.none().equals(safeDivide.apply(8, 0));
-            </code></pre>
-        </section>
-
-        <section>
-            <h3>Functions - Memoization</h3>
-            <p>Memoization is a form of caching. A memoized function executes only once and then returns the result from
-                a cache.</p>
-            <pre><code data-trim data-noescape>
-        Function2&lt;Integer, Integer, Integer&gt; sum = (x, y) -> x + y;
-        Function2&lt;Integer, Integer, Integer&gt; sumMemoized = sum.memoized();
-        assert sumMemoized.apply(2).apply(3) == 5;
-        assert sumMemoized.apply(2).apply(3) == 5;
-
-        //Don't use it when you expect different values:
-        Function0&lt;Double&gt; randomMemoized= Function0.of(Math::random).memoized();
-        Double random1 = randomMemoized.apply();
-        Double random2 = randomMemoized.apply();
-        assert random1 == random2;
-            </code></pre>
-        </section>
-        <section>
-            <h3>Values</h3>
-            <p>Functional programming is all about values and transformation of values using functions</p>
-            <p>A value extends <span style="color:red">Iterable</span> and it is <span
-                    style="color:red">immutable</span></p>
-            <ul>
-                <li>Option</li>
-                <li>Try</li>
-                <li>Either</li>
-                <li>Lazy</li>
-                <li>Future</li>
-                <li>Validation</li>
-            </ul>
-        </section>
-
-        <section>
-            <h3>Values: Option vs Optional</h3>
-            <p>Option implements <span style="color:red">Serializable</span> and <span style="color:red">Iterable</span>
-            </p>
-            <p>Java8:</p>
-            <pre><code data-trim data-noescape>
-List&lt;Optional&lt;String&gt;&gt; optionalList = Arrays.asList(Optional.of("a"), Optional.empty(), Optional.of("c"));
-
-List&lt;String&gt; listString = optionalList.stream()
-        .filter(Optional::isPresent)
-        .map(Optional::get)
-        .collect(Collectors.toList());
-            </code></pre>
-
-            <p>vavr:</p>
-            <pre><code data-trim data-noescape>
-List&lt;Option&lt;String&gt;&gt; optionList = List.of(Option.of("a"), Option.none(), Option.of("c"));
-
-//["a"], [], ["c"]
-List&lt;String&gt; listString = optionList.flatMap(x -> x);
-//["a", "c"]
-            </code></pre>
-
-        </section>
-        <section>
-            <h3>Values: Validation</h3>
-            <p>The Validation control facilitates accumulating errors. Similar to Either, it will contain on the left
-                side the Error and on the right side the value.</p>
-            <p>A valid value is contained in a Validation.Valid instance, a list of validation errors is contained in a
-                Validation.Invalid instance.</p>
-            <pre><code data-trim data-noescape>
-public class PersonValidator {
-
-    public Validation&lt;Seq&lt;String&gt;, Person&gt; validatePerson(String name, int age) {
-        return Validation.combine(validateName(name), validateAge(age))
-                .ap(Person::new);
-    }
-
-    private Validation&lt;String, String&gt; validateName(String name) {
-        return StringUtils.isAlpha(name)
-                ? Validation.valid(name)
-                : Validation.invalid("Name must contain only Unicode letters");
-    }
-
-    private Validation&lt;String, Integer&gt; validateAge(int age) {
-        return age < 0 || age > 150
-                ? Validation.invalid("Age must be between 0 and 150")
-                : Validation.valid(age);
-    }
-}
-            </code></pre>
-        </section>
-        <section>
-            <h3>Values: Validation</h3>
-            <pre><code data-trim data-noescape>
-@Test
-public void testValidation(){
-    PersonValidator personValidator = new PersonValidator();
-
-    Validation&lt;Seq&lt;String&gt;, Person&gt; suay = personValidator.validatePerson("suay", 31);
-    assert suay.isValid();
-    assert suay.get().getName().equals("suay");
-    assert suay.get().getAge() == 31;
-
-    Validation&lt;Seq&lt;String&gt;, Person&gt; suayInvalid = personValidator.validatePerson("suay-invalid", 31);
-    assert !suayInvalid.isValid();
-    assert suayInvalid.getError().apply(0).equals("Name must contain only Unicode letters");
-
-    Validation&lt;Seq&lt;String&gt;, Person&gt; suayInvalid2 = personValidator.validatePerson("suay-invalid", 160);
-    assert !suayInvalid.isValid();
-    assert suayInvalid2.getError().apply(0).equals("Name must contain only Unicode letters");
-    assert suayInvalid2.getError().apply(1).equals("Age must be between 0 and 150");
-}
-                </code></pre>
-
-        </section>
-        <section>
-            <h3>Pattern Matching</h3>
-            <p>Vavr introduced a new match API that is close to Scala’s match. The basic syntax is close to Java’s
-                switch. Pattern matching is a great feature that saves us from writing stacks of if-then-else branches.
-                It reduces the amount of code while focusing on the relevant parts.</p>
-            <pre><code data-trim data-noescape>
-Option option = Option.of(1);
-String optionResult = Match(option).of(
-        Case($Some($(1)), () -> "is 1"),
-        Case($Some($()), () -> "has a value but it is not 1"),
-        Case($None(), () -> "empty")
-);
-assert optionResult.equals("is 1");
-
-Validation suay = personValidator.validatePerson("suay", -1);
-String validationResult = Match(suay).of(
-        Case($Valid($()), "valid"),
-        Case($Invalid($(List.of("Age must be between 0 and 150"))), "invalid age"),
-        Case($Invalid($()), "any other error")
-);
-assert validationResult.equals("invalid age");
-        </code></pre>
-        </section>
-
-        <section>
-            <h3>Resources: Books</h3>
-
-            <p><img style="width:10%; float:left" src="images/fpBook.jpg"> Functional Programming in Java: Harnessing
-                the power of java 8 lambda expressions, by: Venkat
-                Subramaniam
-            </p>
-            <br/>
-            <p><img style="width:10%; float:left" src="images/fpBook2.jpg"> Functional Programming in Java: How
-                functional techniques improve your Java programs, by:
-                Pierre-Yves Saumont
-        </section>
-        <section>
-            <h3>Resources</h3>
-            <p>Videos:</p>
-            <p>Javaslang - Functional Java Done Right by Grzegorz Piwowarek: <a
-                    href="https://www.youtube.com/watch?v=gRJmpmYMHE0">https://www.youtube.com/watch?v=gRJmpmYMHE0 </a>
-            </p>
-            <p>A Pragmatist’s Guide to Functional Geekery by Michał Płachta: <a
-                    href="https://www.youtube.com/watch?v=3bkb6U5jJbs">https://www.youtube.com/watch?v=3bkb6U5jJbs</a>
-            </p>
-            <p>Documentation:</p>
-            <p>Vavr documentation: http://www.vavr.io/vavr-docs/</p>
-        </section>
-        <section>
-            <h3>Source code & Others</h3>
-            <p>Please find all the code in this presentation in my github account:</p>
-            <p><a href="https://github.com/ignacioSuay/Presentations">https://github.com/ignacioSuay/Presentations</a>
-            </p>
-            <p> and you could find the presentation at: <a
-                    href="http://ignaciosuay.com/fp">http://ignaciosuay.com/fp</a></p>
-            <br/>
-            <p>Presentation realized with <a href="http://lab.hakim.se/reveal-js/#/">Reveal.js</a>: The html
-                presentation framework</p>
         </section>
         <section>
             <h1>That's all folks!</h1>
