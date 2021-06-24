@@ -1,0 +1,115 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/league.css">
+    <!--<link rel="stylesheet" href="../highlight/styles/default.css">-->
+    <link rel="stylesheet" href="../css/zenburn.css">
+    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">-->
+    <style type="text/css">
+        p,ul,ol{font-size:30px !important}
+
+
+    </style>
+    <title>Event sourcing and CQRS</title>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>Event sourcing and CQRS</h2>
+            <p style="float:right">@ignacio_suay</p>
+        </section>
+        <section>
+            <h3>Event sourcing</h3>
+            <p>Is an architectural pattern where every change in an application is captured as an event.
+                Event sourcing persists the state of a business entity as a sequence of state-changing events. </p>
+            <img src="images/storingevents.png">
+        </section>
+        <section>
+            <h3>CQRS</h3>
+            <p>CQRS stands for <span style="color:red">Command Query Responsibility Segregation</span> where you separate update operations from read operations to a data store.</p>
+            <img src="images/cqrs.png">
+        </section>
+        <section>
+            <h3>Benefits</h3>
+            <ul>
+                <li><span style="color:deepskyblue">Audit:</span> Every single action in your application is recorded</li>
+                <li><span style="color:deepskyblue">Reproducibility:</span> You can reproduce the state of your application by replaying the events</li>
+                <li><span style="color:deepskyblue">Historic State:</span> For any given point in time you will be able to query the state of your application.</li>
+                <li><span style="color:orange">Scalability:</span> You can scale write and read operations independently.</li>
+                <li><span style="color:orange">Enforce recording every event:</span> Not missing events when updating your model.</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Use case</h3>
+            <img src="images/cqrs-arquitecture.png">
+            <ul>
+                <li>The orchestrator receives Http request and sends a command</li>
+                <li>The command service validates the request and sends an event</li>
+                <li>The event service stores the event into a db (materialized view) and handles read-only queries</li>
+                <li><span style="color:red">Kafka is the source of truth</span></li>
+            </ul>
+        </section>
+        <section>
+            <h3>Complexity</h3>
+            <ul>
+                <li>Code duplication and more code to maintain</li>
+                <li>Handle failures</li>
+                <li>Increase level of testing</li>
+                <li>Eventually consistency</li>
+                <li>External systems</li>
+                <li>Team</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Versioning</h3>
+            <ul>
+                <li>Hard to maintain a system that is able to process events stored years ago</li>
+                <li>You can use a schema registry for storing a history version of your event schemas</li>
+                <li>If an event is not backward compatible then it is a new event.</li>
+                <li>Migrating old events into new events is hard and time consuming.</li>
+            </ul>
+            <p></p>
+        </section>
+        <section>
+            <h3>Money</h3>
+            <p>Java + Spring love memory</p>
+            <img src="images/cookie.gif">
+        </section>
+        <section>
+            <h3>Summary</h3>
+            <ul>
+                <li>Event sourcing and CQRS are very useful patterns and like any other pattern they won't apply for all cases.</li>
+                <li>Event sourcing has great advantages and should be considered when working specially with financial data</li>
+                <li>CQRS has good benefits but it could ve a big impact in your productivity and budget</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Links</h3>
+            <ul>
+            <li><a href="https://martinfowler.com/bliki/CQRS.html"> CQRS by Martin fowler</a></li>
+            <li><a href="https://martinfowler.com/eaaDev/EventSourcing.html">Event sourcing by Martin Fowler</a></li>
+            <li><a href="https://microservices.io/patterns/data/event-sourcing.html">Event sourcing by microservices.io</a></li>
+            <li><a href="https://www.infoq.com/news/2017/07/versioning-event-sourcing/">Versioning of Events in Event Sourced Systems </a></li>
+            </ul>
+        </section>
+        <section>
+            <h1>That's all folks!</h1>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js/js/reveal.js"></script>
+<script src="../highlight/highlight.js"></script>
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>-->
+<script>
+    Reveal.initialize();
+    Reveal.configure({slideNumber: 'c/t',
+     history:true,
+     width: "90%"
+     });
+
+    hljs.initHighlightingOnLoad();
+
+</script>
+</body>
+</html>
