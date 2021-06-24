@@ -1,0 +1,161 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/league.css">
+    <!--<link rel="stylesheet" href="../highlight/styles/default.css">-->
+    <link rel="stylesheet" href="../css/zenburn.css">
+    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">-->
+    <style type="text/css">
+        p, ul, ol {
+            font-size: 30px !important
+        }
+
+
+    </style>
+    <title>AWS Certified Security - Specialty</title>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>AWS Certified Security - Specialty</h2>
+            <p style="float:right">@ignacio_suay</p>
+        </section>
+        <section>
+            <h3>Content</h3>
+            <ul>
+                <li>Domain 1: Incident Response - 12%</li>
+                <li>Domain 2: Logging and Monitoring - 20%</li>
+                <li>Domain 3: Infrastructure Security - 26%</li>
+                <li>Domain 4: Identity and Access Management - 20%</li>
+                <li>Domain 5: Data Protection - 22%</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Domain 1: Incident Response - 12%</h3>
+            <p>Given an AWS abuse notice, evaluate the suspected compromised instance or exposed access keys.</p>
+            <p>Evaluate the configuration of automated alerting, and execute possible remediation of security-related
+                incidents and emerging issues.</p>
+            <div style="color:deepskyblue">
+                <ul>
+                    <li>IAM</li>
+                    <li>AWS Config</li>
+                    <li>AWS GuardDuty</li>
+                    <li>AWS Cloudtrail</li>
+                    <li>Cloudwatch</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h3>Domain 2: Logging and Monitoring - 20% </h3>
+            <p>Design and implement security monitoring and alerting.</p>
+            <p>Troubleshoot logging solutions</p>
+            <div style="color:deepskyblue">
+                <ul>
+                    <li>IAM</li>
+                    <li>Cloudwatch Events</li>
+                    <li>Cloudwatch Insights</li>
+                    <li>AWS Config</li>
+                    <li>AWS GuardDuty</li>
+                    <li>AWS Cloudtrail</li>
+                    <li>Athena</li>
+                    <li>VPC Flow logs</li>
+                    <li>Cloudfront and WAF logs</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h3>Domain 3: Infrastructure Security - 26% </h3>
+            <p>Design edge security on AWS.</p>
+            <p>Design and implement a secure network infrastructure.</p>
+            <p>Troubleshoot a secure network infrastructure.</p>
+            <div style="color:deepskyblue">
+                <ul>
+                    <li>ACL</li>
+                    <li>Security Groups</li>
+                    <li>IAM permissions</li>
+                    <li>API Gateway</li>
+                    <li>VPN</li>
+                    <li>VPC Endpoints</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h3>Domain 4: Identity and Access Management - 20% </h3>
+            <p>Design and implement a scalable authorization and authentication system to access AWS resources.</p>
+            <p>Troubleshoot an authorization and authentication system to access AWS resources.</p>
+            <div style="color:deepskyblue">
+                <ul>
+                    <li>IAM permissions (policies, evaluation, conditions)</li>
+                    <li>S3 permissions</li>
+                    <li>Federation</li>
+                    <li>Cognito</li>
+                    <li>API Gateway</li>
+                    <li>AWS Organizations (SCP)</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h3>Domain 5: Data Protection - 22% </h3>
+            <p>Design and implement a scalable authorization and authentication system to access AWS resources.</p>
+            <p>Troubleshoot key management.</p>
+            <p>Design and implement a data encryption solution for data at rest and data in transit.</p>
+            <div style="color:deepskyblue">
+                <ul>
+                    <li>KMS!!</li>
+                    <li>Cloud HSM</li>
+                    <li>Federation</li>
+                    <li>S3</li>
+                    <li>Data at rest and in transit</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h3>Not covered</h3>
+            <div style="color:red">
+                <ul>
+                    <li>Security attacks</li>
+                    <li>DAST and SAST</li>
+                    <li>Common Vulnerabilities and Exposures (CVE)</li>
+                    <li>OAUTH authentication vulnerabilities</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h3>Exam Details</h3>
+            <ul>
+                <li>65 questions; either multiple choice or multiple response</li>
+                <li>Time: 170 minutes to complete the exam</li>
+                <li>Cost: 300 USD (Practice exam: 40 USD)</li>
+                <li>Pass mark: 750/1000</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Links</h3>
+            <ul>
+                <li><a href="https://www.oreilly.com/library/view/aws-certified-security/9780135771990/"> Course: O'Reilly AWS Certified
+                    Security - Specialty (june 2019)</a></li>
+                <li><a href="https://www.whizlabs.com/">Whizlabs: Exam questions (around £13 for 300 questions)</a></li>
+            </ul>
+        </section>
+        <section>
+            <h1>That's all folks!</h1>
+        </section>
+    </div>
+</div>
+<script src="../reveal.js/js/reveal.js"></script>
+<script src="../highlight/highlight.js"></script>
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>-->
+<script>
+    Reveal.initialize();
+    Reveal.configure({
+        slideNumber: 'c/t',
+        history: true,
+        width: "90%"
+    });
+
+    hljs.initHighlightingOnLoad();
+
+</script>
+</body>
+</html>
